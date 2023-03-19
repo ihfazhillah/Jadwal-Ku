@@ -10,4 +10,7 @@ class ActivityModule {
 
     @Provides
     fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
+
+    @Provides
+    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
 }
