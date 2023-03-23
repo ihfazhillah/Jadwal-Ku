@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/toolbar"
-        app:title="@string/app_name"
         app:titleCentered="true"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
