@@ -12,19 +12,19 @@ class HomeMvcView(
     parent: ViewGroup?
 ): BaseMvcView<HomeMvcView.Listener>(layoutInflater, parent, R.layout.layout_home) {
     fun showCurrentEventIndicator() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     fun hideCurrentEventIndicator() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     fun bindCurrentEvent(event: Event) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     fun showCurrentEventEmpty() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     interface Listener{

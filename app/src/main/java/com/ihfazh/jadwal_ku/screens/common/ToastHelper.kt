@@ -1,11 +1,17 @@
 package com.ihfazh.jadwal_ku.screens.common
 
-class ToastHelper {
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import javax.inject.Inject
+
+class ToastHelper @Inject constructor(
+    private val activity: AppCompatActivity
+) {
     fun showGenericError() {
-        TODO("Not yet implemented")
+        Toast.makeText(activity, "Something bad happens", Toast.LENGTH_SHORT).show()
     }
 
     fun showNetworkError() {
-        TODO("Not yet implemented")
+        Toast.makeText(activity, "Network error", Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,4 +1,4 @@
-package com.ihfazh.jadwal_ku.screens.home
+package com.ihfazh.jadwal_ku.event
 
 import com.ihfazh.jadwal_ku.event.Event
 

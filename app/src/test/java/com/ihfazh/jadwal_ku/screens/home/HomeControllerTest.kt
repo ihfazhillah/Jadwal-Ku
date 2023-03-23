@@ -1,6 +1,7 @@
 package com.ihfazh.jadwal_ku.screens.home
 
 import com.ihfazh.jadwal_ku.event.CurrentEventResponse
+import com.ihfazh.jadwal_ku.event.EventProvider
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import kotlinx.coroutines.*

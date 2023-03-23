@@ -1,14 +1,16 @@
 package com.ihfazh.jadwal_ku.screens.home
 
+import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class HomeController(
+class HomeController @Inject constructor(
     private val getCurrentUseCase: GetCurrentEventUseCase,
     private val toastHelper: ToastHelper,
-    dispatcher: CoroutineDispatcher = Dispatchers.Main
+    @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : HomeMvcView.Listener {
 
     private val coroutineScope = CoroutineScope(dispatcher)
