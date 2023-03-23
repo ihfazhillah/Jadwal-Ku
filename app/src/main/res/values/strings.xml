@@ -2,8 +2,9 @@
     <string name="app_name">Jadwal-Ku</string>
     <string name="now_label">Sekarang</string>
     <string name="open">Buka</string>
-    <string name="open">Buka</string>
     <string name="no_event_label">Tidak Ada Jadwal</string>
     <string name="upcoming_label">Akan Datang</string>
     <string name="no_upcoming_label">Belum ada acara yang akan datang</string>
+    <string name="open_youtube">Buka Youtube</string>
+    <string name="event_thumbnail">Event Thumbnail</string>
 </resources>
