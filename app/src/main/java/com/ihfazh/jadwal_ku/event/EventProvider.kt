@@ -6,6 +6,7 @@ class EventProvider {
     companion object {
         fun provideEvent() = Event(
             1,
+            "",
             "Kajian Anak Jabodetabek",
             "Ramadhanku yang berkesan",
             "Erlan Iskandar S.T",

@@ -2,6 +2,7 @@ package com.ihfazh.jadwal_ku.event
 
 data class Event(
     val id: Int?,
+    val thumbnailUrl: String,
     val organizer: String,
     val title: String,
     val presenter: String,
