@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
     @Inject lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
+        activityComponent.inject(this)
 
         viewMvc = mvcFactory.newMainActivityMvc()
 

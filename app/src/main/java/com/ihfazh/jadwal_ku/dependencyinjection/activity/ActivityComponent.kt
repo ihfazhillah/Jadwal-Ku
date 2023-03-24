@@ -5,16 +5,16 @@ import com.ihfazh.jadwal_ku.dependencyinjection.presentation.PresentationCompone
 import com.ihfazh.jadwal_ku.dependencyinjection.presentation.PresentationModule
 import com.ihfazh.jadwal_ku.screens.main.MainActivity
 import dagger.BindsInstance
-import dagger.Component
+import dagger.Subcomponent
 
-@Component(modules = [ActivityModule::class])
+@Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
     fun inject(mainActivity: MainActivity)
 
     fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
 
 
-    @Component.Builder
+    @Subcomponent.Builder
     interface Builder{
         @BindsInstance fun activity(activity: AppCompatActivity): Builder
         fun build(): ActivityComponent

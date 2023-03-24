@@ -9,7 +9,7 @@ import com.ihfazh.jadwal_ku.screens.main.MainActivity
 
 open class BaseFragment: Fragment() {
     private val activityComponent: ActivityComponent by lazy {
-        (requireActivity() as BaseActivity).injector
+        (requireActivity() as BaseActivity).activityComponent
     }
     val injector: PresentationComponent by lazy {
         activityComponent.newPresentationComponent(PresentationModule())
