@@ -4,12 +4,14 @@ import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
+import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class HomeController @Inject constructor(
     private val getCurrentUseCase: GetCurrentEventUseCase,
     private val toastHelper: ToastHelper,
+    private val intentHelper: IntentHelper,
     @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : HomeMvcView.Listener {
 
@@ -37,8 +39,13 @@ class HomeController @Inject constructor(
         getCurrentEvent()
     }
 
+    override fun onOpenClick(url: String) {
+        intentHelper.openUrl(url)
+    }
+
     private fun getCurrentEvent() {
         viewMvc.hideCurrentEventEmpty()
+        viewMvc.hideCurrentEvent()
         viewMvc.showCurrentEventIndicator()
         coroutineScope.launch {
             when (val eventResponse = getCurrentUseCase.getCurrent()) {

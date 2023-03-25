@@ -12,7 +12,7 @@ class EventProvider {
             "Erlan Iskandar S.T",
             "Jumat, 17 Maret 2023",
             "14:00 WIB",
-            null,
+            "https://www.youtube.com/watch?v=0SryhULjcjI",
             null
         )
     }

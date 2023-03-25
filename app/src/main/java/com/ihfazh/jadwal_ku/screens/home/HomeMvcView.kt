@@ -43,6 +43,8 @@ class HomeMvcView(
         lblPresenter = findViewById(R.id.lblPresenter)
         lblDate = findViewById(R.id.lblDate)
         lblTime = findViewById(R.id.lblTime)
+
+
         btnOpen = findViewById(R.id.btnOpen)
 
 
@@ -63,6 +65,18 @@ class HomeMvcView(
         lblDate.text = event.date
         lblTime.text = event.time
         imageLoader.loadImage(event.thumbnailUrl, eventThumbnail)
+
+        btnOpen.setOnClickListener {
+            listeners.forEach { listener ->
+                if (event.youtubeLink !== null){
+                    listener.onOpenClick(event.youtubeLink)
+                }
+                if (event.zoomLink !== null){
+                    listener.onOpenClick(event.zoomLink)
+                }
+            }
+        }
+
     }
 
     fun showCurrentEventIndicator() {
@@ -85,8 +99,13 @@ class HomeMvcView(
         eventNotFoundContainer.visibility = View.GONE
     }
 
+    fun hideCurrentEvent() {
+        eventContainer.visibility = View.GONE
+    }
+
     interface Listener{
         fun onReloadClick()
+        fun onOpenClick(url: String)
 
     }
 

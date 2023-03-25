@@ -4,6 +4,7 @@ import com.ihfazh.jadwal_ku.event.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.EventProvider
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
+import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.Assert.*
@@ -24,6 +25,7 @@ class HomeControllerTest{
 
     @Mock private lateinit var homeMvcViewMock: HomeMvcView
     @Mock private lateinit var toastHelperMock: ToastHelper
+    @Mock private lateinit var intentHelperMock: IntentHelper
 
     @Before
     fun setUp(){
@@ -33,6 +35,7 @@ class HomeControllerTest{
         SUT = HomeController(
             getCurrentUseCaseTD,
             toastHelperMock,
+            intentHelperMock,
             dispatcher
         )
         SUT.bindView(homeMvcViewMock)
@@ -153,6 +156,24 @@ class HomeControllerTest{
         SUT.onReloadClick()
         verify(homeMvcViewMock).showCurrentEventEmpty()
         verify(toastHelperMock).showNetworkError()
+    }
+
+    @Test
+    fun `onReloadClick hide current event`() = runTest{
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).hideCurrentEvent()
+    }
+
+    @Test
+    fun `onStart hide current event`() = runTest{
+        SUT.onStart()
+        verify(homeMvcViewMock).hideCurrentEvent()
+    }
+
+    @Test
+    fun `onOpenClick should open url`(){
+        SUT.onOpenClick("https://youtube.com")
+        verify(intentHelperMock).openUrl("https://youtube.com")
     }
 
 
