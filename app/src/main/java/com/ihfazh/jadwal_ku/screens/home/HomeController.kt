@@ -23,7 +23,7 @@ class HomeController @Inject constructor(
 
     fun onStart(){
         this.viewMvc.registerListener(this)
-        initializeCurrentEvent()
+        getCurrentEvent()
     }
 
     fun onStop(){
@@ -33,8 +33,13 @@ class HomeController @Inject constructor(
         coroutineScope.coroutineContext.cancelChildren()
     }
 
-    private fun initializeCurrentEvent() {
-        this.viewMvc.showCurrentEventIndicator()
+    override fun onReloadClick() {
+        getCurrentEvent()
+    }
+
+    private fun getCurrentEvent() {
+        viewMvc.hideCurrentEventEmpty()
+        viewMvc.showCurrentEventIndicator()
         coroutineScope.launch {
             when (val eventResponse = getCurrentUseCase.getCurrent()) {
                 CurrentEventResponse.EmptyEvent -> {
@@ -50,6 +55,7 @@ class HomeController @Inject constructor(
                 }
                 is CurrentEventResponse.Success -> {
                     viewMvc.bindCurrentEvent(eventResponse.event)
+                    viewMvc.showCurrentEvent()
                 }
             }
             viewMvc.hideCurrentEventIndicator()

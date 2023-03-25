@@ -74,6 +74,7 @@ class HomeControllerTest{
     fun `onStart getCurrentEvent success call view to display data`() = runTest {
         SUT.onStart()
         verify(homeMvcViewMock).bindCurrentEvent(EventProvider.provideEvent())
+        verify(homeMvcViewMock).showCurrentEvent()
     }
 
     @Test
@@ -95,6 +96,61 @@ class HomeControllerTest{
     fun `onStart getCurrentEvent network error call display empty data and toast`() = runTest{
         getCurrentUseCaseTD.networkError = true
         SUT.onStart()
+        verify(homeMvcViewMock).showCurrentEventEmpty()
+        verify(toastHelperMock).showNetworkError()
+    }
+
+    @Test
+    fun `onReloadClick call get current use case`() = runTest {
+        SUT.onReloadClick()
+        assertEquals(getCurrentUseCaseTD.callCounts, 1)
+    }
+
+    @Test
+    fun `onReloadClick show loading indicator`() = runTest {
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).showCurrentEventIndicator()
+    }
+
+    @Test
+    fun `onReloadClick hide not found container`() = runTest {
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).hideCurrentEventEmpty()
+    }
+
+    @Test
+    fun `onReloadClick getCurrentEvent finished call hideCurrentEventIndicator`() = runTest {
+        SUT.onReloadClick()
+        advanceUntilIdle()
+        verify(homeMvcViewMock, times(1)).hideCurrentEventIndicator()
+    }
+
+    @Test
+    fun `onReloadClick getCurrentEvent success call view to display data`() = runTest {
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).bindCurrentEvent(EventProvider.provideEvent())
+        verify(homeMvcViewMock).showCurrentEvent()
+    }
+
+    @Test
+    fun `onReloadClick getCurrentEvent empty call display empty data`() = runTest{
+        getCurrentUseCaseTD.empty = true
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).showCurrentEventEmpty()
+    }
+
+    @Test
+    fun `onReloadClick getCurrentEvent generic error call display empty data and toast`() = runTest{
+        getCurrentUseCaseTD.genericError = true
+        SUT.onReloadClick()
+        verify(homeMvcViewMock).showCurrentEventEmpty()
+        verify(toastHelperMock).showGenericError()
+    }
+
+    @Test
+    fun `onReloadClick getCurrentEvent network error call display empty data and toast`() = runTest{
+        getCurrentUseCaseTD.networkError = true
+        SUT.onReloadClick()
         verify(homeMvcViewMock).showCurrentEventEmpty()
         verify(toastHelperMock).showNetworkError()
     }

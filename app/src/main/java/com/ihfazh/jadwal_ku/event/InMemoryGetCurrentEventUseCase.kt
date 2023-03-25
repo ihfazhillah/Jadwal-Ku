@@ -1,11 +1,13 @@
 package com.ihfazh.jadwal_ku.event
 
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class InMemoryGetCurrentEventUseCase @Inject constructor(): GetCurrentEventUseCase {
     private var count = 0
 
     override suspend fun getCurrent(): CurrentEventResponse {
+        delay(1000)
         count += 1
 
         if (count == 1){

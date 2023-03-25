@@ -13,7 +13,7 @@ open class BaseMvcView<LISTENER_TYPE>(
 ) {
     val rootView: View = layoutInflater.inflate(layoutId, parent, false)
 
-    protected fun <T : View?> findViewById(id: Int) : T?{
+    protected fun <T : View> findViewById(id: Int) : T{
         return rootView.findViewById(id)
     }
 
