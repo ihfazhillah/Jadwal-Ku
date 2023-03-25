@@ -3,6 +3,8 @@ package com.ihfazh.jadwal_ku.screens.home
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
+import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase
+import com.ihfazh.jadwal_ku.event.UpcomingEventsResponse
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.*
@@ -10,6 +12,7 @@ import javax.inject.Inject
 
 class HomeController @Inject constructor(
     private val getCurrentUseCase: GetCurrentEventUseCase,
+    private val getUpcomingEventsUseCase: GetUpcomingEventsUseCase,
     private val toastHelper: ToastHelper,
     private val intentHelper: IntentHelper,
     @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -25,8 +28,11 @@ class HomeController @Inject constructor(
 
     fun onStart(){
         this.viewMvc.registerListener(this)
+
         getCurrentEvent()
+        getUpcomingEvents()
     }
+
 
     fun onStop(){
         viewMvc.unregisterListener(this)
@@ -41,6 +47,10 @@ class HomeController @Inject constructor(
 
     override fun onOpenClick(url: String) {
         intentHelper.openUrl(url)
+    }
+
+    override fun onUpcomingClick(id: String) {
+//        TODO("Not yet implemented")
     }
 
     private fun getCurrentEvent() {
@@ -66,6 +76,33 @@ class HomeController @Inject constructor(
                 }
             }
             viewMvc.hideCurrentEventIndicator()
+        }
+    }
+
+    private fun getUpcomingEvents() {
+        viewMvc.hideUpcomingEventList()
+        viewMvc.showUpcomingEventLoadingIndicator()
+        viewMvc.hideUpcomingNoData()
+        coroutineScope.launch {
+            when(val response = getUpcomingEventsUseCase.getUpcomingEvents()){
+                UpcomingEventsResponse.EmptyEvent -> {
+                    viewMvc.showUpcomingEventNoData()
+                }
+                UpcomingEventsResponse.GeneralError -> {
+                    viewMvc.showUpcomingEventNoData()
+                    toastHelper.showGenericError()
+                }
+                UpcomingEventsResponse.NetworkError -> {
+                    viewMvc.showUpcomingEventNoData()
+                    toastHelper.showNetworkError()
+                }
+                is UpcomingEventsResponse.Success -> {
+                    viewMvc.bindUpcomingEvents(response.events)
+                    viewMvc.showUpcomingEventList()
+                }
+            }
+
+            viewMvc.hideUpcomingEventLoadingIndicator()
         }
     }
 

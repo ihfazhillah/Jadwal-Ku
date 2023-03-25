@@ -15,5 +15,10 @@ class EventProvider {
             "https://www.youtube.com/watch?v=0SryhULjcjI",
             null
         )
+
+        fun provideEventList() = arrayListOf(
+            EventListItem("1", "https://scontent-cgk1-2.cdninstagram.com/v/t51.2885-15/337336357_893285668618864_8083752984114041139_n.webp?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-cgk1-2.cdninstagram.com&_nc_cat=104&_nc_ohc=ZRsHKWmqfkAAX-YynK2&edm=ALQROFkBAAAA&ccb=7-5&ig_cache_key=MzA2MzMwOTAyNDg5NzA0ODczOQ%3D%3D.2-ccb7-5&oh=00_AfDe72oQTCBXFiR0iLrXZGBiM5spIOYXgvN-dViwON3f5w&oe=64239F7D&_nc_sid=30a2ef", "Ramadhan yang Menyenangkan", "Rabu, 22 Maret 2023", "16:00 WIB"),
+            EventListItem("2", "https://scontent-cgk1-2.cdninstagram.com/v/t51.2885-15/337336357_893285668618864_8083752984114041139_n.webp?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-cgk1-2.cdninstagram.com&_nc_cat=104&_nc_ohc=ZRsHKWmqfkAAX-YynK2&edm=ALQROFkBAAAA&ccb=7-5&ig_cache_key=MzA2MzMwOTAyNDg5NzA0ODczOQ%3D%3D.2-ccb7-5&oh=00_AfDe72oQTCBXFiR0iLrXZGBiM5spIOYXgvN-dViwON3f5w&oe=64239F7D&_nc_sid=30a2ef", "Ramadhan yang Menyenangkan", "Rabu, 22 Maret 2023", "16:00 WIB"),
+        )
     }
 }

@@ -24,13 +24,13 @@
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/lblDateTime"
         app:layout_constraintStart_toEndOf="@id/imgThumbnail"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ramadhanku yang berkesan" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/lblDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

@@ -1,8 +1,6 @@
 package com.ihfazh.jadwal_ku.screens.home
 
-import com.ihfazh.jadwal_ku.event.CurrentEventResponse
-import com.ihfazh.jadwal_ku.event.EventProvider
-import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
+import com.ihfazh.jadwal_ku.event.*
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.*
@@ -21,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class HomeControllerTest{
     private lateinit var SUT: HomeController
     private lateinit var getCurrentUseCaseTD: GetCurrentUseCaseTD
+    private lateinit var getUpcomingEventsTD: GetUpcomingEventUseCaseTD
     private lateinit var dispatcher: TestDispatcher
 
     @Mock private lateinit var homeMvcViewMock: HomeMvcView
@@ -30,10 +29,12 @@ class HomeControllerTest{
     @Before
     fun setUp(){
         getCurrentUseCaseTD = GetCurrentUseCaseTD()
+        getUpcomingEventsTD = GetUpcomingEventUseCaseTD()
         dispatcher = UnconfinedTestDispatcher()
 
         SUT = HomeController(
             getCurrentUseCaseTD,
+            getUpcomingEventsTD,
             toastHelperMock,
             intentHelperMock,
             dispatcher
@@ -177,6 +178,86 @@ class HomeControllerTest{
     }
 
 
+    @Test
+    fun `onStart should get upcoming events`(){
+        SUT.onStart()
+        assertEquals(getUpcomingEventsTD.callCounts, 1)
+    }
+
+    @Test
+    fun `onStart should hide upcoming eventlist`(){
+        SUT.onStart()
+        verify(homeMvcViewMock).hideUpcomingEventList()
+    }
+
+    @Test
+    fun `onStart should display upcoming loadingIndicator`(){
+        SUT.onStart()
+        verify(homeMvcViewMock).showUpcomingEventLoadingIndicator()
+    }
+
+
+    @Test
+    fun `onStart should hide upcoming no data`(){
+        SUT.onStart()
+        verify(homeMvcViewMock).hideUpcomingNoData()
+    }
+
+    @Test
+    fun `getUpcomingEvents success should bind events`(){
+        SUT.onStart()
+        verify(homeMvcViewMock).bindUpcomingEvents(EventProvider.provideEventList())
+    }
+
+    @Test
+    fun `getUpcomingEvents success should display events`(){
+        SUT.onStart()
+        verify(homeMvcViewMock).showUpcomingEventList()
+    }
+
+    @Test
+    fun `getUpcomingEvents empty should display no events`(){
+        getUpcomingEventsTD.empty = true
+        SUT.onStart()
+        verify(homeMvcViewMock).showUpcomingEventNoData()
+    }
+
+    @Test
+    fun `getUpcomingEvents general error should display no events`(){
+        getUpcomingEventsTD.generalError = true
+        SUT.onStart()
+        verify(homeMvcViewMock).showUpcomingEventNoData()
+    }
+
+    @Test
+    fun `getUpcomingEvents network error should display no events`(){
+        getUpcomingEventsTD.networkError = true
+        SUT.onStart()
+        verify(homeMvcViewMock).showUpcomingEventNoData()
+    }
+
+    @Test
+    fun `getUpcomingEvents general error should display toast`(){
+        getUpcomingEventsTD.generalError = true
+        SUT.onStart()
+        verify(toastHelperMock).showGenericError()
+    }
+
+    @Test
+    fun `getUpcomingEvents network error should display toast`(){
+        getUpcomingEventsTD.networkError = true
+        SUT.onStart()
+        verify(toastHelperMock).showNetworkError()
+    }
+
+    @Test
+    fun `getUpcomingEvents finished should hide loading indicator`() = runTest{
+        SUT.onStart()
+        advanceUntilIdle()
+        verify(homeMvcViewMock).hideUpcomingEventLoadingIndicator()
+    }
+
+
     class  GetCurrentUseCaseTD: GetCurrentEventUseCase{
         var callCounts = 0
         var empty = false
@@ -195,6 +276,27 @@ class HomeControllerTest{
                 EventProvider.provideEvent()
             )
         }
+    }
+
+
+    class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase{
+        var empty = false
+        var generalError = false
+        var networkError = false
+        var callCounts = 0
+        override suspend fun getUpcomingEvents(): UpcomingEventsResponse {
+            callCounts += 1
+            if (empty){
+                return UpcomingEventsResponse.EmptyEvent
+            }
+            if (generalError){
+                return UpcomingEventsResponse.GeneralError
+            }
+            if (networkError)
+                return UpcomingEventsResponse.NetworkError
+            return UpcomingEventsResponse.Success(EventProvider.provideEventList())
+        }
+
     }
 
 }
