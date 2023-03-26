@@ -10,6 +10,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.Event
+import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
 
@@ -20,7 +21,7 @@ class EventDetailMvcView(
 ): BaseMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail) {
 
     interface Listener{
-        fun onOpenButtonClick(url: String)
+        fun onOpenButtonClick(eventType: EventUrlType)
         fun onRetryButtonClick()
     }
 
@@ -58,7 +59,20 @@ class EventDetailMvcView(
         imageLoader.loadImage(event.thumbnailUrl, imgThumbnail)
     }
 
-    fun bindOpenButton(link: String) {
+    fun bindOpenButton(eventType: EventUrlType) {
+        when(eventType){
+            EventUrlType.Youtube -> {
+                btnOpen.setIconResource(R.drawable.baseline_smart_display_24)
+                btnOpen.visibility = View.VISIBLE
+            }
+            EventUrlType.Zoom -> {
+                btnOpen.setIconResource(R.drawable.baseline_videocam_24)
+                btnOpen.visibility = View.VISIBLE
+            }
+            EventUrlType.Empty -> {
+                btnOpen.visibility = View.GONE
+            }
+        }
     }
 
     fun showEventData() {

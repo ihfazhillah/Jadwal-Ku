@@ -1,5 +1,7 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
+import com.ihfazh.jadwal_ku.event.Event
+import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,6 +20,7 @@ class EventDetailController (
     private lateinit var viewMvc: EventDetailMvcView
 
     private var questionId : String? = null
+    private var detail: Event? = null
 
     fun bindView(view: EventDetailMvcView, questionId: String){
         viewMvc = view
@@ -37,8 +40,16 @@ class EventDetailController (
 
     }
 
-    override fun onOpenButtonClick(url: String) {
-        intentHelper.openUrl(url)
+    override fun onOpenButtonClick(urlType: EventUrlType) {
+        val url = when(urlType){
+            EventUrlType.Youtube -> detail!!.youtubeLink!!
+            EventUrlType.Zoom -> detail!!.zoomLink!!
+            EventUrlType.Empty -> null
+        }
+
+        if (url != null){
+            intentHelper.openUrl(url)
+        }
     }
 
     override fun onRetryButtonClick() {
@@ -56,11 +67,15 @@ class EventDetailController (
                     viewMvc.showErrorIndicator()
                 }
                 is GetEventDetailUseCase.Result.Success -> {
+                    detail = result.event
+
                     viewMvc.bindEvent(result.event)
                     if (result.event.youtubeLink != null){
-                        viewMvc.bindOpenButton(result.event.youtubeLink)
+                        viewMvc.bindOpenButton(EventUrlType.Youtube)
                     } else if (result.event.zoomLink != null){
-                        viewMvc.bindOpenButton(result.event.zoomLink)
+                        viewMvc.bindOpenButton(EventUrlType.Zoom)
+                    } else {
+                        viewMvc.bindOpenButton(EventUrlType.Empty)
                     }
                     viewMvc.showEventData()
                 }

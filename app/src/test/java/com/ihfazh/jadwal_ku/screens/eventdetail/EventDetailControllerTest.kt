@@ -1,6 +1,7 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
 import com.ihfazh.jadwal_ku.event.EventProvider
+import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -83,12 +84,11 @@ class EventDetailControllerTest {
         verify(viewMvc).bindEvent(EventProvider.provideEvent())
     }
 
-    // this section!!, we only want to change icon
     @Test
     fun `onStart getDetailEvent success call bindOpenButton with youtuble link`() = runTest {
         SUT.onStart()
         advanceUntilIdle()
-        verify(viewMvc).bindOpenButton(EventProvider.provideEvent().youtubeLink!!)
+        verify(viewMvc).bindOpenButton(EventUrlType.Youtube)
     }
 
     @Test
@@ -96,7 +96,7 @@ class EventDetailControllerTest {
         eventDetailUseCase.onlyZoomLink = true
         SUT.onStart()
         advanceUntilIdle()
-        verify(viewMvc).bindOpenButton(ZOOM_LINK)
+        verify(viewMvc).bindOpenButton(EventUrlType.Zoom)
     }
 
     @Test
@@ -104,7 +104,7 @@ class EventDetailControllerTest {
         eventDetailUseCase.noLink = true
         SUT.onStart()
         advanceUntilIdle()
-        verify(viewMvc, never()).bindOpenButton(anyString())
+        verify(viewMvc).bindOpenButton(EventUrlType.Empty)
     }
 
     @Test
@@ -137,11 +137,21 @@ class EventDetailControllerTest {
         verify(viewMvc).showErrorIndicator()
     }
 
-    // hey, we can't do that here
     @Test
-    fun `onOpenButtonClick should open url`(){
-        SUT.onOpenButtonClick("some url")
-        verify(intentHelperMock).openUrl("some url")
+    fun `onOpenButtonClick should open youtube url`() = runTest {
+        SUT.onStart()
+        advanceUntilIdle()
+        SUT.onOpenButtonClick(EventUrlType.Youtube)
+        verify(intentHelperMock).openUrl(EventProvider.provideEvent().youtubeLink!!)
+    }
+
+    @Test
+    fun `onOpenButtonClick should open zoom url`() = runTest {
+        eventDetailUseCase.onlyZoomLink = true
+        SUT.onStart()
+        advanceUntilIdle()
+        SUT.onOpenButtonClick(EventUrlType.Zoom)
+        verify(intentHelperMock).openUrl(ZOOM_LINK)
     }
 
     @Test
