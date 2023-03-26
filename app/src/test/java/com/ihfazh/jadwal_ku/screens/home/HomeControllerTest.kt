@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.screens.home
 import com.ihfazh.jadwal_ku.event.*
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
+import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.Assert.*
@@ -25,6 +26,7 @@ class HomeControllerTest{
     @Mock private lateinit var homeMvcViewMock: HomeMvcView
     @Mock private lateinit var toastHelperMock: ToastHelper
     @Mock private lateinit var intentHelperMock: IntentHelper
+    @Mock private lateinit var screensNavigatorMock: ScreensNavigator
 
     @Before
     fun setUp(){
@@ -37,6 +39,7 @@ class HomeControllerTest{
             getUpcomingEventsTD,
             toastHelperMock,
             intentHelperMock,
+            screensNavigatorMock,
             dispatcher
         )
         SUT.bindView(homeMvcViewMock)
@@ -255,6 +258,12 @@ class HomeControllerTest{
         SUT.onStart()
         advanceUntilIdle()
         verify(homeMvcViewMock).hideUpcomingEventLoadingIndicator()
+    }
+
+    @Test
+    fun `onUpcomingClick should navigate to the detail`(){
+        SUT.onUpcomingClick("1")
+        verify(screensNavigatorMock).goToEventDetail("1")
     }
 
 

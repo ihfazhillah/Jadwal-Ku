@@ -7,6 +7,7 @@ import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase
 import com.ihfazh.jadwal_ku.event.UpcomingEventsResponse
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
+import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class HomeController @Inject constructor(
     private val getUpcomingEventsUseCase: GetUpcomingEventsUseCase,
     private val toastHelper: ToastHelper,
     private val intentHelper: IntentHelper,
+    private val screensNavigator: ScreensNavigator,
     @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : HomeMvcView.Listener {
 
@@ -50,7 +52,7 @@ class HomeController @Inject constructor(
     }
 
     override fun onUpcomingClick(id: String) {
-//        TODO("Not yet implemented")
+        screensNavigator.goToEventDetail(id)
     }
 
     private fun getCurrentEvent() {

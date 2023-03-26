@@ -15,4 +15,8 @@ class ScreensNavigator @Inject constructor(
         .commit()
     }
 
+    fun goToEventDetail(eventId: String) {
+        // todo
+    }
+
 }
