@@ -1,10 +1,10 @@
 package com.ihfazh.jadwal_ku.screens.home
 
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
-import com.ihfazh.jadwal_ku.event.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
+import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase.CurrentEventResponse
 import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase
-import com.ihfazh.jadwal_ku.event.UpcomingEventsResponse
+import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase.UpcomingEventsResponse
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator

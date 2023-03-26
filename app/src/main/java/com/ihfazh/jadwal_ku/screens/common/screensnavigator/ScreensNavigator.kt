@@ -1,6 +1,5 @@
 package com.ihfazh.jadwal_ku.screens.common.screensnavigator
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment

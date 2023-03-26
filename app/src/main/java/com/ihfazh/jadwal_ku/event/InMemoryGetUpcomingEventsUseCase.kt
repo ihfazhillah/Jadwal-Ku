@@ -1,5 +1,6 @@
 package com.ihfazh.jadwal_ku.event
 
+import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase.*
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
