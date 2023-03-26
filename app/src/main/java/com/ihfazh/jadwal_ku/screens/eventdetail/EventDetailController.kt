@@ -4,10 +4,7 @@ import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class EventDetailController (
@@ -37,6 +34,7 @@ class EventDetailController (
 
     fun onStop(){
         viewMvc.unregisterListener(this)
+        coroutineScope.coroutineContext.cancelChildren()
 
     }
 
