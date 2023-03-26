@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/progress_circular"
+        android:id="@+id/eventDetailLoading"
         android:indeterminate="true"
         app:indicatorColor="?attr/colorPrimary"
         />
@@ -186,6 +186,7 @@
             app:icon="@drawable/baseline_smart_display_24"
             android:textAllCaps="true"
             app:iconGravity="textStart"
+            android:id="@+id/btnOpen"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

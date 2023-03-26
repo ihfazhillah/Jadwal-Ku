@@ -83,6 +83,7 @@ class EventDetailControllerTest {
         verify(viewMvc).bindEvent(EventProvider.provideEvent())
     }
 
+    // this section!!, we only want to change icon
     @Test
     fun `onStart getDetailEvent success call bindOpenButton with youtuble link`() = runTest {
         SUT.onStart()
@@ -136,6 +137,7 @@ class EventDetailControllerTest {
         verify(viewMvc).showErrorIndicator()
     }
 
+    // hey, we can't do that here
     @Test
     fun `onOpenButtonClick should open url`(){
         SUT.onOpenButtonClick("some url")
