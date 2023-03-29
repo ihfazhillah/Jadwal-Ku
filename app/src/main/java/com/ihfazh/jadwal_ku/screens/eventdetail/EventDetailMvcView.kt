@@ -74,6 +74,11 @@ class EventDetailMvcView(
                 btnOpen.visibility = View.GONE
             }
         }
+        btnOpen.setOnClickListener {
+            listeners.forEach { listener ->
+                listener.onOpenButtonClick()
+            }
+        }
     }
 
     fun showEventData() {
