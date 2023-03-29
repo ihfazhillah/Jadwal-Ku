@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ihfazh.jadwal_ku.R
@@ -37,6 +38,15 @@ class EventDetailMvcView(
     private val lblPresenter: TextView = findViewById(R.id.lblPresenter)
     private val lblDate: TextView = findViewById(R.id.lblDate)
     private val lblTime: TextView = findViewById(R.id.lblTime)
+
+    private val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
+
+    init {
+        toolbar.setNavigationOnClickListener {
+            listeners.forEach { listener -> listener.onBackClick() }
+        }
+
+    }
 
 
     fun hideEventData() {

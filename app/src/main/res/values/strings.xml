@@ -8,4 +8,5 @@
     <string name="open_youtube">Buka Youtube</string>
     <string name="event_thumbnail">Event Thumbnail</string>
     <string name="reload">Muat Ulang</string>
+    <string name="event_detail">Detil Jadwal</string>
 </resources>

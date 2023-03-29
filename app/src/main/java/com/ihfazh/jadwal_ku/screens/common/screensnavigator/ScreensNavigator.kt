@@ -11,7 +11,7 @@ class ScreensNavigator @Inject constructor(
     private val fragmentFrameHelper: FragmentFrameHelper
 ) {
     fun goToHome(){
-        fragmentFrameHelper.replaceFragment(HomeFragment())
+        fragmentFrameHelper.replaceFragmentDontAddToBackstack(HomeFragment())
     }
 
     fun goToEventDetail(eventId: String) {
