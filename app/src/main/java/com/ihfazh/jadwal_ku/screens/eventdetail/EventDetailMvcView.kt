@@ -21,8 +21,9 @@ class EventDetailMvcView(
 ): BaseMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail) {
 
     interface Listener{
-        fun onOpenButtonClick(eventType: EventUrlType)
+        fun onOpenButtonClick()
         fun onRetryButtonClick()
+        fun onBackClick()
     }
 
     private val eventDataContainer: ConstraintLayout = findViewById(R.id.eventDataContainer)

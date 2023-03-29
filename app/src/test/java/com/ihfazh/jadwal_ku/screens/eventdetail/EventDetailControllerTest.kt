@@ -1,9 +1,11 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
+import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventProvider
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
+import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -32,6 +34,7 @@ class EventDetailControllerTest {
 
     @Mock lateinit var viewMvc: EventDetailMvcView
     @Mock lateinit var intentHelperMock: IntentHelper
+    @Mock lateinit var navigatorMock: ScreensNavigator
 
     @Before
     fun setUp() {
@@ -41,6 +44,7 @@ class EventDetailControllerTest {
         SUT = EventDetailController(
             eventDetailUseCase,
             intentHelperMock,
+            navigatorMock,
             dispatcher
         )
         SUT.bindView(viewMvc, EVENT_ID)
@@ -141,8 +145,8 @@ class EventDetailControllerTest {
     fun `onOpenButtonClick should open youtube url`() = runTest {
         SUT.onStart()
         advanceUntilIdle()
-        SUT.onOpenButtonClick(EventUrlType.Youtube)
-        verify(intentHelperMock).openUrl(EventProvider.provideEvent().youtubeLink!!)
+        SUT.onOpenButtonClick()
+        verify(intentHelperMock).openUrl((EventProvider.provideEvent().link as EventLink.YoutubeLink).link)
     }
 
     @Test
@@ -150,7 +154,7 @@ class EventDetailControllerTest {
         eventDetailUseCase.onlyZoomLink = true
         SUT.onStart()
         advanceUntilIdle()
-        SUT.onOpenButtonClick(EventUrlType.Zoom)
+        SUT.onOpenButtonClick()
         verify(intentHelperMock).openUrl(ZOOM_LINK)
     }
 
@@ -160,6 +164,12 @@ class EventDetailControllerTest {
         verify(viewMvc).showLoadingIndicator()
         advanceUntilIdle()
         verify(viewMvc).hideLoadingIndicator()
+    }
+
+    @Test
+    fun `onBackClick should navigate back`(){
+        SUT.onBackClick()
+        verify(navigatorMock).navigateUp()
     }
 
 
@@ -181,10 +191,10 @@ class EventDetailControllerTest {
 
             var event = EventProvider.provideEvent()
             if (onlyZoomLink){
-                event = event.copy(youtubeLink = null, zoomLink = ZOOM_LINK)
+                event = event.copy(link = EventLink.ZoomLink(ZOOM_LINK))
             }
             if (noLink){
-                event = event.copy(youtubeLink = null, zoomLink = null)
+                event = event.copy(link=EventLink.EmptyLink)
             }
             return GetEventDetailUseCase.Result.Success(event)
         }

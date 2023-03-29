@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.Event
+import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventListItem
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
@@ -92,11 +93,12 @@ class HomeMvcView(
 
         btnOpen.setOnClickListener {
             listeners.forEach { listener ->
-                if (event.youtubeLink !== null){
-                    listener.onOpenClick(event.youtubeLink)
-                }
-                if (event.zoomLink !== null){
-                    listener.onOpenClick(event.zoomLink)
+                when (val link = event.link){
+                    EventLink.EmptyLink -> {
+                        // noop
+                    }
+                    is EventLink.YoutubeLink -> listener.onOpenClick(link.link)
+                    is EventLink.ZoomLink -> listener.onOpenClick(link.link)
                 }
             }
         }

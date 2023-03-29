@@ -18,4 +18,8 @@ class ScreensNavigator @Inject constructor(
         // todo
     }
 
+    fun navigateUp() {
+//        TODO("Not yet implemented")
+    }
+
 }

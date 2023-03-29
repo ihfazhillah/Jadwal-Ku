@@ -1,15 +1,18 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
 import com.ihfazh.jadwal_ku.event.Event
+import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
+import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
 
 
 class EventDetailController (
     private val getEventDetailUseCase: GetEventDetailUseCase,
     private val intentHelper: IntentHelper,
+    private val navigator: ScreensNavigator,
     dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
 ) : EventDetailMvcView.Listener {
 
@@ -38,20 +41,24 @@ class EventDetailController (
 
     }
 
-    override fun onOpenButtonClick(urlType: EventUrlType) {
-        val url = when(urlType){
-            EventUrlType.Youtube -> detail!!.youtubeLink!!
-            EventUrlType.Zoom -> detail!!.zoomLink!!
-            EventUrlType.Empty -> null
-        }
-
-        if (url != null){
-            intentHelper.openUrl(url)
+    override fun onOpenButtonClick() {
+        if (detail !== null){
+            when(val link = detail!!.link){
+                EventLink.EmptyLink -> {
+                    // noop
+                }
+                is EventLink.YoutubeLink -> intentHelper.openUrl(link.link)
+                is EventLink.ZoomLink -> intentHelper.openUrl(link.link)
+            }
         }
     }
 
     override fun onRetryButtonClick() {
         getEventDetail()
+    }
+
+    override fun onBackClick() {
+        navigator.navigateUp()
     }
 
     private fun getEventDetail() {
@@ -68,12 +75,10 @@ class EventDetailController (
                     detail = result.event
 
                     viewMvc.bindEvent(result.event)
-                    if (result.event.youtubeLink != null){
-                        viewMvc.bindOpenButton(EventUrlType.Youtube)
-                    } else if (result.event.zoomLink != null){
-                        viewMvc.bindOpenButton(EventUrlType.Zoom)
-                    } else {
-                        viewMvc.bindOpenButton(EventUrlType.Empty)
+                    when(result.event.link){
+                        EventLink.EmptyLink -> viewMvc.bindOpenButton(EventUrlType.Empty)
+                        is EventLink.YoutubeLink -> viewMvc.bindOpenButton(EventUrlType.Youtube)
+                        is EventLink.ZoomLink -> viewMvc.bindOpenButton(EventUrlType.Zoom)
                     }
                     viewMvc.showEventData()
                 }
