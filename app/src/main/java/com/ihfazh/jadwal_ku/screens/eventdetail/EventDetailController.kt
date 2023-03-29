@@ -1,5 +1,6 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
+import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventUrlType
@@ -7,13 +8,15 @@ import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 
-class EventDetailController (
+class EventDetailController @Inject constructor(
     private val getEventDetailUseCase: GetEventDetailUseCase,
     private val intentHelper: IntentHelper,
     private val navigator: ScreensNavigator,
-    dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
+
+    @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
 ) : EventDetailMvcView.Listener {
 
     private val coroutineScope = CoroutineScope(dispatcher)

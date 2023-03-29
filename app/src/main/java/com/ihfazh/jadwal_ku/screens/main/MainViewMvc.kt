@@ -17,5 +17,5 @@ class MainViewMvc (
 
     }
 
-    val fragmentContent : FrameLayout? = findViewById(R.id.frame_content)
+    val fragmentContent : FrameLayout = findViewById(R.id.frame_content)
 }

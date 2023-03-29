@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.screens.common.views
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
+import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailMvcView
 import com.ihfazh.jadwal_ku.screens.home.HomeMvcView
 import com.ihfazh.jadwal_ku.screens.main.MainViewMvc
 import javax.inject.Inject
@@ -21,4 +22,12 @@ class ViewMvcFactory @Inject constructor(
         parent,
         imageLoader.get()
     )
+
+    fun newEventDetailMvc(container: ViewGroup?): EventDetailMvcView {
+        return EventDetailMvcView(
+            layoutInflater.get(),
+            container,
+            imageLoader.get()
+        )
+    }
 }

@@ -2,24 +2,25 @@ package com.ihfazh.jadwal_ku.screens.common.screensnavigator
 
 import androidx.fragment.app.FragmentManager
 import com.ihfazh.jadwal_ku.R
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
+import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import javax.inject.Inject
 
 class ScreensNavigator @Inject constructor(
-    private val fragmentManager: FragmentManager
+    private val fragmentFrameHelper: FragmentFrameHelper
 ) {
     fun goToHome(){
-        fragmentManager.beginTransaction()
-        .add(R.id.frame_content, HomeFragment())
-        .commit()
+        fragmentFrameHelper.replaceFragment(HomeFragment())
     }
 
     fun goToEventDetail(eventId: String) {
-        // todo
+        val eventDetailFragment = EventDetailFragment.newInstance(eventId)
+        fragmentFrameHelper.replaceFragment(eventDetailFragment)
     }
 
     fun navigateUp() {
-//        TODO("Not yet implemented")
+        fragmentFrameHelper.navigateUp()
     }
 
 }

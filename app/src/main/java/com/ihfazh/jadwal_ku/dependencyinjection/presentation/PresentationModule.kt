@@ -1,9 +1,6 @@
 package com.ihfazh.jadwal_ku.dependencyinjection.presentation
 
-import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase
-import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase
-import com.ihfazh.jadwal_ku.event.InMemoryGetCurrentEventUseCase
-import com.ihfazh.jadwal_ku.event.InMemoryGetUpcomingEventsUseCase
+import com.ihfazh.jadwal_ku.event.*
 import dagger.Module
 import dagger.Provides
 
@@ -18,4 +15,7 @@ class PresentationModule {
     fun getUpcomingEventsUseCase(): GetUpcomingEventsUseCase{
         return InMemoryGetUpcomingEventsUseCase()
     }
+
+    @Provides
+    fun getEventDetailUseCase(): GetEventDetailUseCase = InMemoryGetEventDetailUseCase()
 }

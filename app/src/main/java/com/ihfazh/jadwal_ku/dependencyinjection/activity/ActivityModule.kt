@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.dependencyinjection.activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameWrapper
 import dagger.Module
 import dagger.Provides
 
@@ -17,4 +18,7 @@ class ActivityModule {
 
     @Provides
     fun toastHelper(activity: AppCompatActivity) = ToastHelper(activity)
+
+    @Provides
+    fun fragmentFrameWrapper(activity: AppCompatActivity) = activity as FragmentFrameWrapper
 }
