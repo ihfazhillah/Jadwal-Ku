@@ -46,8 +46,8 @@ private fun EventSchema.toDomain(mediaUrlHelper: MediaUrlHelper): CurrentEventRe
             date = date,
             time = time,
             link = when{
-                youtubeLink != null -> EventLink.YoutubeLink(youtubeLink)
-                zoomLink != null -> EventLink.ZoomLink(zoomLink)
+                !youtubeLink.isNullOrEmpty() -> EventLink.YoutubeLink(youtubeLink)
+                !zoomLink.isNullOrEmpty() -> EventLink.ZoomLink(zoomLink)
                 else -> EventLink.EmptyLink
             }
         )

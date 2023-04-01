@@ -73,7 +73,7 @@ class EventProvider {
             )
         }
 
-        fun provideEventSchemaWithZoomLink(): EventSchema? {
+        fun provideEventSchemaWithZoomLink(): EventSchema {
             return EventSchema(
                 "1",
                 "Ramadhanku yang berkesan",
@@ -86,6 +86,20 @@ class EventProvider {
                 "https://www.youtube.com/watch?v=0SryhULjcjI"
             )
 
+        }
+
+        fun provideEventSchemaWithEmptyLinks(): EventSchema {
+            return EventSchema(
+                "1",
+                "Ramadhanku yang berkesan",
+                "/media/hello-world.png",
+                "Kajian Anak Jabodetabek",
+                "Erlan Iskandar S.T",
+                "Jumat, 17 Maret 2023",
+                "14:00 WIB",
+                "",
+                ""
+            )
         }
     }
 }

@@ -52,6 +52,13 @@ class GetCurrentEventUseCaseImplTest {
     }
 
     @Test
+    fun `getCurrent remote returns not null event with no link not null but empty`() = runTest{
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithEmptyLinks()))
+        val resp = SUT.getCurrent()
+        assertEquals(resp, Success(EventProvider.provideEventWithoutLink()))
+    }
+
+    @Test
     fun `getCurrent remote returns not null event with youtube link`() = runTest{
         `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithYoutubeLink()))
         val resp = SUT.getCurrent()
