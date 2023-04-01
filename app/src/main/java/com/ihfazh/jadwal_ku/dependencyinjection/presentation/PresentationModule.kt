@@ -7,6 +7,7 @@ import com.ihfazh.jadwal_ku.event.usecases.current.InMemoryGetCurrentEventUseCas
 import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.event.usecases.detail.InMemoryGetEventDetailUseCase
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase
+import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCaseImpl
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.InMemoryGetUpcomingEventsUseCase
 import com.ihfazh.jadwal_ku.networking.KsatriaMuslimService
 import dagger.Module
@@ -23,8 +24,11 @@ class PresentationModule {
     }
 
     @Provides
-    fun getUpcomingEventsUseCase(): GetUpcomingEventsUseCase {
-        return InMemoryGetUpcomingEventsUseCase()
+    fun getUpcomingEventsUseCase(ksatriaMuslimService: KsatriaMuslimService, mediaUrlHelper: MediaUrlHelper): GetUpcomingEventsUseCase {
+        return GetUpcomingEventsUseCaseImpl(
+            ksatriaMuslimService,
+            mediaUrlHelper
+        )
     }
 
     @Provides

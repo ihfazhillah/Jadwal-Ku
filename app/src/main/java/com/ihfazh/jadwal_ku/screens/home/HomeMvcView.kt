@@ -153,7 +153,7 @@ class HomeMvcView(
         lblUpcomingNoData.visibility = View.VISIBLE
     }
 
-    fun bindUpcomingEvents(eventListItem: ArrayList<EventListItem>) {
+    fun bindUpcomingEvents(eventListItem: List<EventListItem>) {
         rvUpcomingEventsAdapter.bindItems(eventListItem)
     }
 
