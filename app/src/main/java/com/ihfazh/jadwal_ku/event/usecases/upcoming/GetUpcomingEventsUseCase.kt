@@ -1,4 +1,6 @@
-package com.ihfazh.jadwal_ku.event
+package com.ihfazh.jadwal_ku.event.usecases.upcoming
+
+import com.ihfazh.jadwal_ku.event.EventListItem
 
 
 interface GetUpcomingEventsUseCase {

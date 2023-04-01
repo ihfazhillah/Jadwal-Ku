@@ -3,7 +3,7 @@ package com.ihfazh.jadwal_ku.screens.eventdetail
 import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventProvider
 import com.ihfazh.jadwal_ku.event.EventUrlType
-import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
+import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.CoroutineDispatcher
@@ -173,7 +173,7 @@ class EventDetailControllerTest {
     }
 
 
-    inner class GetEventDetailUseCaseTD: GetEventDetailUseCase{
+    inner class GetEventDetailUseCaseTD: GetEventDetailUseCase {
         var generalError: Boolean = false
         var networkError = false
         var onlyZoomLink: Boolean = false

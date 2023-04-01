@@ -4,7 +4,7 @@ import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventUrlType
-import com.ihfazh.jadwal_ku.event.GetEventDetailUseCase
+import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCase
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*

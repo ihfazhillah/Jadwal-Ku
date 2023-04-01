@@ -1,4 +1,6 @@
-package com.ihfazh.jadwal_ku.event
+package com.ihfazh.jadwal_ku.event.usecases.current
+
+import com.ihfazh.jadwal_ku.event.Event
 
 
 interface GetCurrentEventUseCase {

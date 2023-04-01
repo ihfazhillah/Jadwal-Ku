@@ -1,8 +1,10 @@
 package com.ihfazh.jadwal_ku.screens.home
 
 import com.ihfazh.jadwal_ku.event.*
-import com.ihfazh.jadwal_ku.event.GetCurrentEventUseCase.*
-import com.ihfazh.jadwal_ku.event.GetUpcomingEventsUseCase.*
+import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase
+import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase.*
+import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase
+import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase.*
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
@@ -269,7 +271,7 @@ class HomeControllerTest{
     }
 
 
-    class  GetCurrentUseCaseTD: GetCurrentEventUseCase{
+    class  GetCurrentUseCaseTD: GetCurrentEventUseCase {
         var callCounts = 0
         var empty = false
         var genericError = false
@@ -290,7 +292,7 @@ class HomeControllerTest{
     }
 
 
-    class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase{
+    class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase {
         var empty = false
         var generalError = false
         var networkError = false
