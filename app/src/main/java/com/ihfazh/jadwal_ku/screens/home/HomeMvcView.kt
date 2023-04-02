@@ -1,14 +1,16 @@
 package com.ihfazh.jadwal_ku.screens.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ihfazh.jadwal_ku.R
@@ -16,13 +18,14 @@ import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventListItem
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
+import com.ihfazh.jadwal_ku.screens.common.listviewhelper.AdjustHeightHelper
 import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
-import javax.inject.Inject
 
 class HomeMvcView(
     private val layoutInflater: LayoutInflater,
     parent: ViewGroup?,
-    private val imageLoader: ImageLoader
+    private val imageLoader: ImageLoader,
+    private val adjustHeightHelper: AdjustHeightHelper
 ): BaseMvcView<HomeMvcView.Listener>(layoutInflater, parent, R.layout.layout_home) {
 
     interface Listener{
@@ -41,12 +44,12 @@ class HomeMvcView(
     private val lblPresenter: TextView
     private val lblDate: TextView
     private val lblTime: TextView
+
     private val btnOpen: MaterialButton
     private val btnReload: MaterialButton
 
 
-    private val rvUpcomingEvents: RecyclerView
-    private val rvUpcomingEventsAdapter: UpcomingEventsAdapter
+    private val upcomingEvents: ListView
     private val upcomingLoadingIndicator: CircularProgressIndicator
     private val lblUpcomingNoData: TextView
 
@@ -73,10 +76,7 @@ class HomeMvcView(
             }
         }
 
-        rvUpcomingEvents = findViewById(R.id.rvUpcomingEvents)
-        rvUpcomingEventsAdapter = UpcomingEventsAdapter()
-        rvUpcomingEvents.adapter = rvUpcomingEventsAdapter
-        rvUpcomingEvents.layoutManager = LinearLayoutManager(context)
+        upcomingEvents = findViewById(R.id.upcomingEvents)
 
         upcomingLoadingIndicator = findViewById(R.id.upcomingLoading)
         lblUpcomingNoData = findViewById(R.id.lblNoUpcomingEvents)
@@ -130,11 +130,11 @@ class HomeMvcView(
     }
 
     fun hideUpcomingEventList() {
-        rvUpcomingEvents.visibility = View.GONE
+        upcomingEvents.visibility = View.GONE
     }
 
     fun showUpcomingEventList() {
-        rvUpcomingEvents.visibility = View.VISIBLE
+        upcomingEvents.visibility = View.VISIBLE
     }
 
     fun showUpcomingEventLoadingIndicator() {
@@ -154,47 +154,50 @@ class HomeMvcView(
     }
 
     fun bindUpcomingEvents(eventListItem: List<EventListItem>) {
-        rvUpcomingEventsAdapter.bindItems(eventListItem)
+        val adapter = UpcomingEventsListViewAdapter(context, eventListItem)
+        upcomingEvents.adapter = adapter
+        adjustHeightHelper.adjustListViewHeight(eventListItem, upcomingEvents)
     }
 
 
-    inner class UpcomingEventsAdapter: RecyclerView.Adapter<UpcomingEventsAdapter.ViewHolder>(){
-        inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class UpcomingEventsListViewAdapter(
+        context: Context,
+        eventListItem: List<EventListItem>
+    ): ArrayAdapter<EventListItem>(context, 0, eventListItem){
+
+        inner class ViewHolder(view: View){
             val imgThumbnail: ImageView = view.findViewById(R.id.imgThumbnail)
             val lblTitle: TextView = view.findViewById(R.id.lblTitle)
             val lblDateTime: TextView = view.findViewById(R.id.lblDateTime)
         }
 
-        private val items: MutableList<EventListItem> = mutableListOf()
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_event, parent, false)
-            return ViewHolder(view)
-        }
+            val view = convertView ?: layoutInflater.inflate(R.layout.list_item_event, parent, false)
 
-        fun bindItems(listItems: List<EventListItem>){
-            items.clear()
-            items.addAll(listItems)
-            notifyDataSetChanged()
-        }
-
-
-        override fun getItemCount(): Int {
-            return items.size
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val eventItem = items[position]
-            imageLoader.loadImage(eventItem.thumbnailUrl, holder.imgThumbnail)
-            holder.lblTitle.text = eventItem.title
-            holder.lblDateTime.text = "${eventItem.date} ${eventItem.time}"
-            holder.itemView.setOnClickListener{
-                listeners.forEach { listener ->
-                    listener.onUpcomingClick(eventItem.id)
+            val holder: ViewHolder = if (convertView != null){
+                view.tag as ViewHolder
+            } else {
+                ViewHolder(view).also {
+                    view.tag = it
                 }
             }
-        }
 
+            val item: EventListItem? = getItem(position)
+
+            if (item != null){
+                imageLoader.loadImage(item.thumbnailUrl, holder.imgThumbnail)
+                holder.lblTitle.text = item.title
+                holder.lblDateTime.text = "${item.date} ${item.time}"
+                view.setOnClickListener{
+                    listeners.forEach { listener ->
+                        listener.onUpcomingClick(item.id)
+                    }
+                }
+            }
+
+            return view
+        }
     }
 
 }
