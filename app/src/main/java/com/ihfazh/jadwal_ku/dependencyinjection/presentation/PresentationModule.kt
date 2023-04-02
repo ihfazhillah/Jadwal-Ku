@@ -5,6 +5,7 @@ import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCaseImpl
 import com.ihfazh.jadwal_ku.event.usecases.current.InMemoryGetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCase
+import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCaseImpl
 import com.ihfazh.jadwal_ku.event.usecases.detail.InMemoryGetEventDetailUseCase
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCaseImpl
@@ -32,5 +33,6 @@ class PresentationModule {
     }
 
     @Provides
-    fun getEventDetailUseCase(): GetEventDetailUseCase = InMemoryGetEventDetailUseCase()
+    fun getEventDetailUseCase(ksatriaMuslimService: KsatriaMuslimService, mediaUrlHelper: MediaUrlHelper): GetEventDetailUseCase =
+        GetEventDetailUseCaseImpl(ksatriaMuslimService, mediaUrlHelper)
 }

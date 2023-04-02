@@ -1,7 +1,7 @@
 package com.ihfazh.jadwal_ku.common
 
 object Constants {
-    val DOMAIN = "cms.ksatriamuslim.com"
-    val SCHEME = "https"
-    val FULL_DOMAIN = "${SCHEME}://${DOMAIN}"
+    private const val DOMAIN = "cms.ksatriamuslim.com"
+    private const val SCHEME = "https"
+    const val FULL_DOMAIN = "${SCHEME}://${DOMAIN}"
 }

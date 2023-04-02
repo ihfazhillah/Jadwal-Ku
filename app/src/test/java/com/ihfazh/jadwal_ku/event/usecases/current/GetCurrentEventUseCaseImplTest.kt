@@ -5,7 +5,7 @@ import com.ihfazh.jadwal_ku.common.MediaUrlHelper
 import com.ihfazh.jadwal_ku.event.EventProvider
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase.CurrentEventResponse.*
 import com.ihfazh.jadwal_ku.networking.KsatriaMuslimService
-import com.ihfazh.jadwal_ku.networking.schemas.CurrentEventSchema
+import com.ihfazh.jadwal_ku.networking.schemas.SingleEventSchema
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -15,11 +15,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -39,35 +37,35 @@ class GetCurrentEventUseCaseImplTest {
 
     @Test
     fun `getCurrent remote returns null event should return empty event`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event=null))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(event=null))
         val resp = SUT.getCurrent()
         assertEquals(resp, EmptyEvent)
     }
 
     @Test
     fun `getCurrent remote returns not null event with no link`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithoutLink()))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(event= EventProvider.provideEventSchemaWithoutLink()))
         val resp = SUT.getCurrent()
         assertEquals(resp, Success(EventProvider.provideEventWithoutLink()))
     }
 
     @Test
     fun `getCurrent remote returns not null event with no link not null but empty`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithEmptyLinks()))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(event= EventProvider.provideEventSchemaWithEmptyLinks()))
         val resp = SUT.getCurrent()
         assertEquals(resp, Success(EventProvider.provideEventWithoutLink()))
     }
 
     @Test
     fun `getCurrent remote returns not null event with youtube link`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithYoutubeLink()))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(event= EventProvider.provideEventSchemaWithYoutubeLink()))
         val resp = SUT.getCurrent()
         assertEquals(resp, Success(EventProvider.provideEvent()))
     }
 
     @Test
     fun `getCurrent remote returns not null event with zoom link`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(event= EventProvider.provideEventSchemaWithZoomLink()))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(event= EventProvider.provideEventSchemaWithZoomLink()))
         val resp = SUT.getCurrent()
         assertEquals(resp, Success(EventProvider.provideEventWithZoomLink()))
     }
@@ -92,7 +90,7 @@ class GetCurrentEventUseCaseImplTest {
 
     @Test
     fun `getCurrent thumbnailUrl should has https and domain`() = runTest{
-        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(CurrentEventSchema(EventProvider.provideEventSchemaWithoutLink()))
+        `when`(ksmServiceMock.getCurrentEvent()).thenReturn(SingleEventSchema(EventProvider.provideEventSchemaWithoutLink()))
         val resp: Success = SUT.getCurrent() as Success
         assertEquals(resp.event.thumbnailUrl, "${Constants.FULL_DOMAIN}/media/hello-world.png")
     }
