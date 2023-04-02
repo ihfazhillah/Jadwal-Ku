@@ -100,7 +100,7 @@
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Ramadhanku yang berkesan"
             app:layout_constraintTop_toBottomOf="@id/lblOrganizer"
@@ -137,6 +137,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            app:tint="?attr/colorOnBackground"
             />
 
         <TextView
@@ -162,6 +163,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
+            app:tint="?attr/colorOnBackground"
             />
 
         <TextView
