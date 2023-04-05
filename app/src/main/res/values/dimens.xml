@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="paddingStart" type="dimen">16dp</item>
+    <item name="paddingEnd" type="dimen">16dp</item>
+    <item name="defaultSpace" type="dimen">16dp</item>
+    <item name="containerSpace" type="dimen">42dp</item>
+</resources>
