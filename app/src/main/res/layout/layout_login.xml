@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:text="@string/login" />
+
+
+    <TextView
+        android:id="@+id/txtError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:layout_marginTop="@dimen/containerSpace"
+        tools:text="Data tidak ada"
+        android:textColor="?attr/colorError"
+        android:visibility="gone"
+        />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtUsernameLayout"
+        android:layout_marginTop="@dimen/defaultSpace"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/defaultSpace"
+        android:id="@+id/edtPasswordLayout"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/containerSpace"
+        android:text="@string/login" />
+
+</LinearLayout>
