@@ -14,20 +14,19 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), FragmentFrameWrapper {
     lateinit var viewMvc: MainViewMvc
     @Inject lateinit var mvcFactory: ViewMvcFactory
-    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var controller: MainActivityController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         activityComponent.inject(this)
 
         viewMvc = mvcFactory.newMainActivityMvc()
+        controller.bindView(viewMvc)
 
         super.onCreate(savedInstanceState)
 
         setContentView(viewMvc.rootView)
 
-        if (savedInstanceState == null){
-            screensNavigator.goToHome()
-        }
+        controller.initNavigation(savedInstanceState)
     }
 
     override fun getFragmentFrame(): FrameLayout {
