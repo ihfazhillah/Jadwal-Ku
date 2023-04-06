@@ -23,4 +23,8 @@ class ScreensNavigator @Inject constructor(
         fragmentFrameHelper.navigateUp()
     }
 
+    fun goToLogin() {
+        TODO("Not yet implemented")
+    }
+
 }

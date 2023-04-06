@@ -1,5 +1,8 @@
 package com.ihfazh.jadwal_ku.dependencyinjection.app
 
+import androidx.core.content.pm.PermissionInfoCompat.ProtectionFlags
+import com.ihfazh.jadwal_ku.authentication.AuthenticationStateManager
+import com.ihfazh.jadwal_ku.authentication.DummyAuthenticationStateManager
 import com.ihfazh.jadwal_ku.common.Constants
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.networking.KsatriaMuslimService
@@ -42,4 +45,8 @@ class AppModule {
     @Provides
     fun ksatriamuslimService(retrofit: Retrofit): KsatriaMuslimService =
         retrofit.create(KsatriaMuslimService::class.java)
+
+    @Provides
+    fun authenticationStateManager(): AuthenticationStateManager = DummyAuthenticationStateManager()
+
 }
