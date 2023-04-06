@@ -27,4 +27,8 @@ class ScreensNavigator @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    fun goToSplashScreen() {
+        TODO("Not yet implemented")
+    }
+
 }

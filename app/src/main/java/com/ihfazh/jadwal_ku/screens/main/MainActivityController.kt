@@ -27,7 +27,10 @@ class MainActivityController @Inject constructor(
 
     fun onStart(){
         coroutineScope.launch {
+
             if (savedInstanceState == null){
+                screensNavigator.goToSplashScreen()
+
                 if (authenticationStateManager.isLoggedIn()){
                     screensNavigator.goToHome()
                 } else {
