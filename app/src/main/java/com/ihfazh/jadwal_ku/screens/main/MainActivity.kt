@@ -21,12 +21,22 @@ class MainActivity : BaseActivity(), FragmentFrameWrapper {
 
         viewMvc = mvcFactory.newMainActivityMvc()
         controller.bindView(viewMvc)
+        controller.bindSavedInstanceState(savedInstanceState)
 
         super.onCreate(savedInstanceState)
 
         setContentView(viewMvc.rootView)
 
-        controller.initNavigation(savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        controller.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        controller.onStop()
     }
 
     override fun getFragmentFrame(): FrameLayout {

@@ -9,13 +9,20 @@ class MainActivityController @Inject constructor(
 ) {
 
     lateinit var viewMvc: MainViewMvc
+    var savedInstanceState: Bundle? = null
 
     fun bindView(viewMvc: MainViewMvc){
         this.viewMvc = viewMvc
     }
 
-    fun onStart(){
+    fun bindSavedInstanceState(savedInstanceState: Bundle?){
+        this.savedInstanceState = savedInstanceState
+    }
 
+    fun onStart(){
+        if (savedInstanceState == null){
+            screensNavigator.goToHome()
+        }
     }
 
     fun onStop(){
@@ -23,9 +30,4 @@ class MainActivityController @Inject constructor(
     }
 
 
-    fun initNavigation(savedInstanceState: Bundle?){
-        if (savedInstanceState == null){
-            screensNavigator.goToHome()
-        }
-    }
 }
