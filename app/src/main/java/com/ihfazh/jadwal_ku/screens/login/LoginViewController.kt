@@ -6,8 +6,9 @@ import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.screens.common.StringHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class LoginViewController(
+class LoginViewController @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val authenticationStateManager: AuthenticationStateManager,
     private val screensNavigator: ScreensNavigator,

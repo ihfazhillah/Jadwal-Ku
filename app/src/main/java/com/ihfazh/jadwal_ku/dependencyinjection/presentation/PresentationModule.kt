@@ -1,5 +1,7 @@
 package com.ihfazh.jadwal_ku.dependencyinjection.presentation
 
+import com.ihfazh.jadwal_ku.authentication.LoginUseCase
+import com.ihfazh.jadwal_ku.authentication.LoginUseCaseImpl
 import com.ihfazh.jadwal_ku.common.MediaUrlHelper
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCaseImpl
@@ -35,4 +37,7 @@ class PresentationModule {
     @Provides
     fun getEventDetailUseCase(ksatriaMuslimService: KsatriaMuslimService, mediaUrlHelper: MediaUrlHelper): GetEventDetailUseCase =
         GetEventDetailUseCaseImpl(ksatriaMuslimService, mediaUrlHelper)
+
+    @Provides
+    fun getLoginUseCase(ksatriaMuslimService: KsatriaMuslimService): LoginUseCase = LoginUseCaseImpl(ksatriaMuslimService)
 }
