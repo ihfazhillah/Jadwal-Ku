@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 
 class SettingsHelper @Inject constructor(
-    private val context: Context
+    context: Context
 ) {
 
     private val sharedPreferences = context.getSharedPreferences(SettingsKey, Context.MODE_PRIVATE)
@@ -20,6 +20,6 @@ class SettingsHelper @Inject constructor(
 
     companion object {
         private const val SettingsKey = "global_settings"
-        private const val USER_TOKEN = "global_settings"
+        private const val USER_TOKEN = "user_token"
     }
 }
