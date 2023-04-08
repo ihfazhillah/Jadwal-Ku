@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.screens.login
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -33,6 +34,15 @@ class LoginViewMvc(
     init {
         btnLogin.setOnClickListener {
             listeners.forEach { listener -> listener.onLoginClick() }
+        }
+
+        edtPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO){
+                listeners.forEach { listener -> listener.onLoginClick() }
+                true
+            } else {
+                false
+            }
         }
     }
 
