@@ -17,7 +17,20 @@ class StringHelper @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    fun getGlobalErrorString(): String {
+        TODO("Not yet implemented")
+    }
+
+    fun getLoginErrorString(): String {
+        TODO("Not yet implemented")
+    }
+
+    fun getGeneralErrorString(): String {
+        TODO()
+    }
+
     private fun getStringById(@StringRes id: Int): String{
         return context.getString(id)
     }
+
 }

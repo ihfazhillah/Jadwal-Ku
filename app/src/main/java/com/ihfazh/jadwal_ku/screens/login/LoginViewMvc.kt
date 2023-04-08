@@ -72,4 +72,12 @@ class LoginViewMvc(
 
     }
 
+    fun disableLoginButton() {
+        TODO("Not yet implemented")
+    }
+
+    fun enableLoginButton() {
+        TODO("Not yet implemented")
+    }
+
 }

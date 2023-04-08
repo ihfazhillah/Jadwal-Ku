@@ -7,4 +7,8 @@ class DummyAuthenticationStateManager: AuthenticationStateManager {
         delay(500)
         return false
     }
+
+    override suspend fun userLoggedIn(token: String) {
+        /* no op */
+    }
 }
