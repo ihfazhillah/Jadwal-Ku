@@ -8,14 +8,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.ihfazh.jadwal_ku.R
+import com.ihfazh.jadwal_ku.authentication.LoginData
 import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
-
-
-data class LoginData(
-    val username: String,
-    val password: String
-)
-
 
 
 class LoginViewMvc(
@@ -68,6 +62,14 @@ class LoginViewMvc(
 
     fun hideGlobalError(){
         txtError.visibility = View.GONE
+    }
+
+    fun hideUsernameError() {
+        TODO("Not yet implemented")
+    }
+
+    fun hidePasswordError(){
+
     }
 
 }
