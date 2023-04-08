@@ -15,7 +15,6 @@ import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
 class LoginViewMvc(
     inflater: LayoutInflater,
     parent: ViewGroup?
-
 ) : BaseMvcView<LoginViewMvc.Listener>(inflater, parent, R.layout.layout_login) {
 
     interface Listener {
@@ -65,19 +64,19 @@ class LoginViewMvc(
     }
 
     fun hideUsernameError() {
-        TODO("Not yet implemented")
+        edtUsernameLayout.error = ""
     }
 
     fun hidePasswordError(){
-
+        edtPasswordLayout.error = ""
     }
 
     fun disableLoginButton() {
-        TODO("Not yet implemented")
+        btnLogin.isEnabled = false
     }
 
     fun enableLoginButton() {
-        TODO("Not yet implemented")
+        btnLogin.isEnabled = true
     }
 
 }

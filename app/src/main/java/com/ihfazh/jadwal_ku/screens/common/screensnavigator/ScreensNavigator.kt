@@ -5,6 +5,8 @@ import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
+import com.ihfazh.jadwal_ku.screens.login.LoginFragment
+import com.ihfazh.jadwal_ku.screens.splashscreen.SplashScreenFragment
 import javax.inject.Inject
 
 class ScreensNavigator @Inject constructor(
@@ -14,6 +16,14 @@ class ScreensNavigator @Inject constructor(
         fragmentFrameHelper.replaceFragmentDontAddToBackstack(HomeFragment())
     }
 
+    fun goToLogin() {
+        fragmentFrameHelper.replaceFragmentDontAddToBackstack(LoginFragment())
+    }
+
+    fun goToSplashScreen() {
+        fragmentFrameHelper.replaceFragmentDontAddToBackstack(SplashScreenFragment())
+    }
+
     fun goToEventDetail(eventId: String) {
         val eventDetailFragment = EventDetailFragment.newInstance(eventId)
         fragmentFrameHelper.replaceFragment(eventDetailFragment)
@@ -21,14 +31,6 @@ class ScreensNavigator @Inject constructor(
 
     fun navigateUp() {
         fragmentFrameHelper.navigateUp()
-    }
-
-    fun goToLogin() {
-        TODO("Not yet implemented")
-    }
-
-    fun goToSplashScreen() {
-        TODO("Not yet implemented")
     }
 
 }

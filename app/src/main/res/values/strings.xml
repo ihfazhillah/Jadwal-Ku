@@ -13,4 +13,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="username_required_error">Field ini tidak boleh kosong</string>
+    <string name="password_required_error">Field ini tidak boleh kosong</string>
+    <string name="global_error">Sesuatu terjadi</string>
+    <string name="login_error">Username atau password tidak valid</string>
+    <string name="general_error">Sesuatu terjadi</string>
 </resources>

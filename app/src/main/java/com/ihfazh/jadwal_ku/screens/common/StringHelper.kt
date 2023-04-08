@@ -14,19 +14,19 @@ class StringHelper @Inject constructor(
     }
 
     fun getPasswordRequiredErrorString(): String {
-        TODO("Not yet implemented")
+        return getStringById(R.string.password_required_error)
     }
 
     fun getGlobalErrorString(): String {
-        TODO("Not yet implemented")
+        return getStringById(R.string.global_error)
     }
 
     fun getLoginErrorString(): String {
-        TODO("Not yet implemented")
+        return getStringById(R.string.login_error)
     }
 
     fun getGeneralErrorString(): String {
-        TODO()
+        return getStringById(R.string.general_error)
     }
 
     private fun getStringById(@StringRes id: Int): String{

@@ -6,6 +6,7 @@ import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.listviewhelper.AdjustHeightHelper
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailMvcView
 import com.ihfazh.jadwal_ku.screens.home.HomeMvcView
+import com.ihfazh.jadwal_ku.screens.login.LoginViewMvc
 import com.ihfazh.jadwal_ku.screens.main.MainViewMvc
 import javax.inject.Inject
 import javax.inject.Provider
@@ -32,5 +33,9 @@ class ViewMvcFactory @Inject constructor(
             container,
             imageLoader.get()
         )
+    }
+
+    fun newLoginMvcView(container: ViewGroup?): LoginViewMvc {
+        return LoginViewMvc(layoutInflater.get(), container)
     }
 }
