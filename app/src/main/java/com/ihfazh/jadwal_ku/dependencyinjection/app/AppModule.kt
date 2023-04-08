@@ -1,7 +1,11 @@
 package com.ihfazh.jadwal_ku.dependencyinjection.app
 
+import android.app.Application
+import android.content.Context
+import com.ihfazh.jadwal_ku.MyApplication
 import com.ihfazh.jadwal_ku.common.Constants
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
+import com.ihfazh.jadwal_ku.networking.AuthInterceptor
 import com.ihfazh.jadwal_ku.networking.KsatriaMuslimService
 import dagger.Module
 import dagger.Provides
@@ -19,13 +23,17 @@ class AppModule {
     @Provides
     fun mainDispatchers(): CoroutineDispatcher = Dispatchers.Main.immediate
 
+    @Provides
+    fun provideContext(application: Application): Context = application
+
 
     @Singleton
     @Provides
-    fun provideOkHttpClient() = OkHttpClient.Builder()
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor) = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
+        .addInterceptor(authInterceptor)
         .build()
 
     @Singleton

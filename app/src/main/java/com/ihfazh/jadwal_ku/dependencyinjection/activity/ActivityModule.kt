@@ -13,9 +13,6 @@ import dagger.Provides
 class ActivityModule {
 
     @Provides
-    fun context(activity: AppCompatActivity): Context = activity
-
-    @Provides
     fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
 
     @Provides
