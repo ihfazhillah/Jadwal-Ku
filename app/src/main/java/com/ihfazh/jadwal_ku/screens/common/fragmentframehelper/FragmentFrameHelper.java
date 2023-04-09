@@ -1,13 +1,10 @@
 package com.ihfazh.jadwal_ku.screens.common.fragmentframehelper;
 
-import android.app.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.ihfazh.jadwal_ku.dependencyinjection.app.AppComponent;
 
 import javax.inject.Inject;
 
@@ -28,6 +25,7 @@ public class FragmentFrameHelper {
             return;
         }
         replaceFragment(newFragment, true, false);
+
     }
 
     public void replaceFragmentDontAddToBackstack(Fragment newFragment) {
@@ -121,5 +119,7 @@ public class FragmentFrameHelper {
     private int getFragmentFrameId() {
         return mFragmentFrameWrapper.getFragmentFrame().getId();
     }
+
+
 
 }

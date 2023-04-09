@@ -1,8 +1,14 @@
 package com.ihfazh.jadwal_ku.screens.main
 
 import android.bluetooth.le.ScanSettings
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
@@ -16,13 +22,15 @@ class MainViewMvc (
     null,
     R.layout.activity_main
 ) {
+
     interface Listener {
         fun onBottomMenuChanged(screenKey: ScreenKey)
 
     }
 
     val fragmentContent : FrameLayout = findViewById(R.id.frame_content)
-    val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigation)
+    private val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigation)
+    private val layoutParent: LinearLayout = findViewById(R.id.layoutParent)
 
     init {
         bottomNav.setOnItemSelectedListener { selectedItem ->
@@ -36,5 +44,22 @@ class MainViewMvc (
             true
         }
 
+    }
+
+    fun hideBottomNav() {
+        animateToggle(layoutParent, bottomNav, false)
+    }
+
+    fun showBottomNav() {
+        animateToggle(layoutParent, bottomNav, true)
+    }
+
+    private fun animateToggle(parent: ViewGroup, target: View, visible: Boolean){
+        val transition = Slide(Gravity.BOTTOM)
+        transition.duration = 600
+        transition.addTarget(target)
+
+        TransitionManager.beginDelayedTransition(parent, transition)
+        target.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

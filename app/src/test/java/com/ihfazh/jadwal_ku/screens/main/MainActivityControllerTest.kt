@@ -2,8 +2,12 @@ package com.ihfazh.jadwal_ku.screens.main
 
 import android.os.Bundle
 import com.ihfazh.jadwal_ku.authentication.AuthenticationStateManager
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentChangeHelper
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
+import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
+import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -28,6 +32,7 @@ class MainActivityControllerTest {
     @Mock lateinit var screensNavigatorMock: ScreensNavigator
     @Mock lateinit var viewMvc: MainViewMvc
     @Mock lateinit var authenticationStateManagerMock: AuthenticationStateManager
+    @Mock lateinit var fragmentChangeHelperMock: FragmentChangeHelper
 
     @Before
     fun setUp() {
@@ -36,6 +41,7 @@ class MainActivityControllerTest {
         SUT = MainActivityController(
             screensNavigatorMock,
             authenticationStateManagerMock,
+            fragmentChangeHelperMock,
             dispatcher
         )
         SUT.bindView(viewMvc)
@@ -75,12 +81,14 @@ class MainActivityControllerTest {
     fun `onStart should register listeners`(){
         SUT.onStart()
         verify(viewMvc).registerListener(SUT)
+        verify(fragmentChangeHelperMock).registerListener(SUT)
     }
 
     @Test
     fun `onStop should unregister listeners`(){
         SUT.onStop()
         verify(viewMvc).unregisterListener(SUT)
+        verify(fragmentChangeHelperMock).unregisterListener(SUT)
     }
 
     // onbottommenuchanged home, list, settings
@@ -99,6 +107,16 @@ class MainActivityControllerTest {
     @Test fun `onBottomMenuChanged to settings should go to settings`(){
         SUT.onBottomMenuChanged(ScreenKey.SETTINGS)
         verify(screensNavigatorMock).goToSettings()
+    }
+
+    @Test fun `onFragmentChanged to home display bottom navbar`(){
+        SUT.onFragmentChanged(HomeFragment())
+        verify(viewMvc).showBottomNav()
+    }
+
+    @Test fun `onFragmentChanged to another hide bottom navbar`(){
+        SUT.onFragmentChanged(EventDetailFragment())
+        verify(viewMvc).hideBottomNav()
     }
 
 

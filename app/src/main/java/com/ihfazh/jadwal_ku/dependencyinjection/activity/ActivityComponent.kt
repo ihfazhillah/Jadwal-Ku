@@ -7,6 +7,7 @@ import com.ihfazh.jadwal_ku.screens.main.MainActivity
 import dagger.BindsInstance
 import dagger.Subcomponent
 
+@ActivityScope
 @Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
     fun inject(mainActivity: MainActivity)
