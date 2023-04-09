@@ -74,10 +74,12 @@ class EventDetailMvcView(
         when(eventType){
             EventUrlType.Youtube -> {
                 btnOpen.setIconResource(R.drawable.baseline_smart_display_24)
+                btnOpen.text = context.getText(R.string.open_youtube)
                 btnOpen.visibility = View.VISIBLE
             }
             EventUrlType.Zoom -> {
                 btnOpen.setIconResource(R.drawable.baseline_videocam_24)
+                btnOpen.text = context.getText(R.string.open_zoom)
                 btnOpen.visibility = View.VISIBLE
             }
             EventUrlType.Empty -> {

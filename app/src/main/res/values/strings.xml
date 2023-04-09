@@ -20,4 +20,5 @@
     <string name="lblHome">Home</string>
     <string name="lblSettings">Settings</string>
     <string name="lblList">Events</string>
+    <string name="open_zoom">Buka Zoom</string>
 </resources>
