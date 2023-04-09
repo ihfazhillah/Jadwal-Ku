@@ -9,6 +9,7 @@ import com.ihfazh.jadwal_ku.screens.home.HomeMvcView
 import com.ihfazh.jadwal_ku.screens.login.LoginViewMvc
 import com.ihfazh.jadwal_ku.screens.main.MainViewMvc
 import com.ihfazh.jadwal_ku.screens.settings.SettingsViewMvc
+import com.ihfazh.jadwal_ku.screens.thumbnailview.ThumbnailViewMvc
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -42,5 +43,9 @@ class ViewMvcFactory @Inject constructor(
 
     fun newSettingsView(container: ViewGroup?): SettingsViewMvc {
         return SettingsViewMvc(layoutInflater.get(), container)
+    }
+
+    fun newThumbnailViewMvc(container: ViewGroup?): ThumbnailViewMvc {
+        return ThumbnailViewMvc(layoutInflater.get(), container, imageLoader.get())
     }
 }

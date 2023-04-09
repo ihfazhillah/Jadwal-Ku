@@ -28,6 +28,8 @@ class EventDetailMvcView(
         fun onOpenButtonClick()
         fun onRetryButtonClick()
         fun onBackClick()
+
+        fun onImageClick(imageUrl: String)
     }
 
     private val eventDataContainer: ConstraintLayout = findViewById(R.id.eventDataContainer)
@@ -77,6 +79,9 @@ class EventDetailMvcView(
         lblDate.text = event.date
         lblTime.text = event.time
         imageLoader.loadImage(event.thumbnailUrl, imgThumbnail)
+        imgThumbnail.setOnClickListener {
+            listeners.forEach {  listener -> listener.onImageClick(event.thumbnailUrl) }
+        }
     }
 
     fun bindOpenButton(eventType: EventUrlType) {

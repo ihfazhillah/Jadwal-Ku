@@ -4,6 +4,7 @@ import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
+import com.ihfazh.jadwal_ku.screens.thumbnailview.ThumbnailViewFragment
 import dagger.Component
 import dagger.Subcomponent
 
@@ -13,5 +14,7 @@ interface PresentationComponent {
     fun inject(fragment: EventDetailFragment)
     fun inject(loginFragment: LoginFragment)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(thumbnailViewFragment: ThumbnailViewFragment)
+
 
 }

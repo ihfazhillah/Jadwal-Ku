@@ -172,6 +172,12 @@ class EventDetailControllerTest {
         verify(navigatorMock).navigateUp()
     }
 
+    @Test
+    fun `onImageClick should navigate to image thumbnail view`(){
+        SUT.onImageClick("hello")
+        verify(navigatorMock).goToImageThumbnailView("hello")
+    }
+
 
     inner class GetEventDetailUseCaseTD: GetEventDetailUseCase {
         var generalError: Boolean = false

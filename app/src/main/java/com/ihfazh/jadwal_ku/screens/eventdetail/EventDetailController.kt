@@ -64,6 +64,10 @@ class EventDetailController @Inject constructor(
         navigator.navigateUp()
     }
 
+    override fun onImageClick(imageUrl: String) {
+        navigator.goToImageThumbnailView(imageUrl)
+    }
+
     private fun getEventDetail() {
         viewMvc.showLoadingIndicator()
         coroutineScope.launch {

@@ -8,6 +8,7 @@ import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
 import com.ihfazh.jadwal_ku.screens.splashscreen.SplashScreenFragment
+import com.ihfazh.jadwal_ku.screens.thumbnailview.ThumbnailViewFragment
 import javax.inject.Inject
 
 class ScreensNavigator @Inject constructor(
@@ -46,6 +47,11 @@ class ScreensNavigator @Inject constructor(
 
     fun navigateUp() {
         fragmentFrameHelper.navigateUp()
+    }
+
+    fun goToImageThumbnailView(url: String) {
+        val fragment = ThumbnailViewFragment.newInstance(url)
+        fragmentFrameHelper.replaceFragment(fragment)
     }
 
 }
