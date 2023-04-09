@@ -17,4 +17,7 @@
     <string name="global_error">Sesuatu terjadi</string>
     <string name="login_error">Username atau password tidak valid</string>
     <string name="general_error">Sesuatu terjadi</string>
+    <string name="lblHome">Home</string>
+    <string name="lblSettings">Settings</string>
+    <string name="lblList">Events</string>
 </resources>

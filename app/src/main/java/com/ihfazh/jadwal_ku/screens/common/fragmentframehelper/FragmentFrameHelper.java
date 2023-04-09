@@ -24,6 +24,9 @@ public class FragmentFrameHelper {
     }
 
     public void replaceFragment(Fragment newFragment) {
+        if (getCurrentFragment().getClass().equals(newFragment.getClass())) {
+            return;
+        }
         replaceFragment(newFragment, true, false);
     }
 

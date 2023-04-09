@@ -2,6 +2,7 @@ package com.ihfazh.jadwal_ku.screens.main
 
 import android.os.Bundle
 import com.ihfazh.jadwal_ku.authentication.AuthenticationStateManager
+import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -68,6 +69,36 @@ class MainActivityControllerTest {
         SUT.bindSavedInstanceState(Bundle())
         SUT.onStart()
         verifyNoInteractions(screensNavigatorMock)
+    }
+
+    @Test
+    fun `onStart should register listeners`(){
+        SUT.onStart()
+        verify(viewMvc).registerListener(SUT)
+    }
+
+    @Test
+    fun `onStop should unregister listeners`(){
+        SUT.onStop()
+        verify(viewMvc).unregisterListener(SUT)
+    }
+
+    // onbottommenuchanged home, list, settings
+
+    @Test
+    fun `onBottomMenuChanged to home should navigate to home`(){
+        SUT.onBottomMenuChanged(ScreenKey.HOME)
+        verify(screensNavigatorMock).goToHomeAndAddToBackstacks()
+    }
+
+    @Test fun `onBottomMenuChanged to events should go to events`(){
+        SUT.onBottomMenuChanged(ScreenKey.EVENTS)
+        verify(screensNavigatorMock).goToEvents()
+    }
+
+    @Test fun `onBottomMenuChanged to settings should go to settings`(){
+        SUT.onBottomMenuChanged(ScreenKey.SETTINGS)
+        verify(screensNavigatorMock).goToSettings()
     }
 
 
