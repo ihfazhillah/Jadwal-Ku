@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -17,11 +14,12 @@ import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventListItem
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.listviewhelper.AdjustHeightHelper
+import com.ihfazh.jadwal_ku.screens.common.toolbar.ToolbarMvcView
 import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class HomeMvcView(
     private val layoutInflater: LayoutInflater,
-    parent: ViewGroup?,
+    private val parent: ViewGroup?,
     private val imageLoader: ImageLoader,
     private val adjustHeightHelper: AdjustHeightHelper
 ): ObservableMvcView<HomeMvcView.Listener>(layoutInflater, parent, R.layout.layout_home) {
@@ -78,6 +76,8 @@ class HomeMvcView(
 
         upcomingLoadingIndicator = findViewById(R.id.upcomingLoading)
         lblUpcomingNoData = findViewById(R.id.lblNoUpcomingEvents)
+
+        setupToolbar()
     }
 
 
@@ -198,4 +198,11 @@ class HomeMvcView(
         }
     }
 
+    private fun setupToolbar() {
+        val toolbarView = ToolbarMvcView(layoutInflater, parent)
+        toolbarView.setTitle("Jadwal-Ku")
+
+        val toolbar: FrameLayout = findViewById(R.id.toolbar)
+        toolbar.addView(toolbarView.rootView)
+    }
 }

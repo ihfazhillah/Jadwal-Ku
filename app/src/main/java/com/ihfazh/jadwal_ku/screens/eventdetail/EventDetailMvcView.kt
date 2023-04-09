@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.screens.eventdetail
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,13 +14,15 @@ import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
+import com.ihfazh.jadwal_ku.screens.common.toolbar.ToolbarMvcView
 import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class EventDetailMvcView(
-    layoutInflater: LayoutInflater,
-    parent: ViewGroup?,
+    private val layoutInflater: LayoutInflater,
+    private val parent: ViewGroup?,
     private val imageLoader: ImageLoader
-): ObservableMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail) {
+): ObservableMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail),
+    ToolbarMvcView.OnBackPressedListener {
 
     interface Listener{
         fun onOpenButtonClick()
@@ -39,13 +42,19 @@ class EventDetailMvcView(
     private val lblDate: TextView = findViewById(R.id.lblDate)
     private val lblTime: TextView = findViewById(R.id.lblTime)
 
-    private val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
 
     init {
-        toolbar.setNavigationOnClickListener {
-            listeners.forEach { listener -> listener.onBackClick() }
-        }
 
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        val toolbarView = ToolbarMvcView(layoutInflater, parent)
+        toolbarView.setTitle("Event Detil")
+        toolbarView.enableUpButtonAndListen(this)
+
+        val toolbar: FrameLayout = findViewById(R.id.toolbar)
+        toolbar.addView(toolbarView.rootView)
     }
 
 
@@ -103,6 +112,10 @@ class EventDetailMvcView(
 
     fun showErrorIndicator() {
         errorIndicatorContainer.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        listeners.forEach { listener -> listener.onBackClick() }
     }
 
 
