@@ -28,4 +28,46 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
+
+    <!-- Display -->
+    <style name="TextDisplay">
+        <item name="android:textSize">@dimen/font_size_display</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Heading -->
+    <style name="TextHeading">
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextSubHeading">
+        <item name="android:textSize">@dimen/font_size_subheading</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Body -->
+    <style name="TextBody">
+        <item name="android:textSize">@dimen/font_size_body</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Caption -->
+    <style name="TextCaption">
+        <item name="android:textSize">@dimen/font_size_caption</item>
+        <item name="android:textStyle">normal</item>
+        <item name="color">?attr/colorOnSecondaryContainer</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Button -->
+    <style name="TextButton" parent="Widget.Material3.Button">
+        <item name="android:textSize">@dimen/font_size_button</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
 </resources>

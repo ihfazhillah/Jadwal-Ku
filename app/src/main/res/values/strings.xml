@@ -21,4 +21,7 @@
     <string name="lblSettings">Settings</string>
     <string name="lblList">Events</string>
     <string name="open_zoom">Buka Zoom</string>
+    <string name="txtVersion">Versi</string>
+    <string name="logout">Keluar</string>
+    <string name="settings">Settings</string>
 </resources>

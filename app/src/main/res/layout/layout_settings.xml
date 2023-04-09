@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar"
+        app:title="@string/settings"
+        app:titleCentered="true"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="?attr/colorOnPrimary"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/containerSpace"
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        style="@style/TextSubHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtVersion" />
+
+    <TextView
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:id="@+id/txtVersion"
+        style="@style/TextCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="1.2.3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/containerSpace"
+        android:layout_marginStart="@dimen/paddingStart"
+        android:layout_marginEnd="@dimen/paddingEnd"
+        android:text="@string/logout"
+        android:id="@+id/btnLogout"
+        />
+
+</LinearLayout>
