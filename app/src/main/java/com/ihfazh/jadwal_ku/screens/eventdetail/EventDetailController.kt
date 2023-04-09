@@ -1,10 +1,12 @@
 package com.ihfazh.jadwal_ku.screens.eventdetail
 
+import android.view.View
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.event.usecases.detail.GetEventDetailUseCase
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentTransactionHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import kotlinx.coroutines.*
@@ -15,6 +17,7 @@ class EventDetailController @Inject constructor(
     private val getEventDetailUseCase: GetEventDetailUseCase,
     private val intentHelper: IntentHelper,
     private val navigator: ScreensNavigator,
+
 
     @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
 ) : EventDetailMvcView.Listener {
@@ -35,7 +38,13 @@ class EventDetailController @Inject constructor(
         viewMvc.registerListener(this)
         viewMvc.hideEventData()
         viewMvc.hideErrorIndicator()
-        getEventDetail()
+        if (detail == null){
+            getEventDetail()
+        } else {
+            viewMvc.bindEvent(detail!!)
+            viewMvc.showEventData()
+            viewMvc.hideLoadingIndicator()
+        }
     }
 
     fun onStop(){

@@ -2,6 +2,8 @@ package com.ihfazh.jadwal_ku.dependencyinjection.app
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import androidx.transition.TransitionInflater
 import com.ihfazh.jadwal_ku.MyApplication
 import com.ihfazh.jadwal_ku.common.Constants
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
@@ -19,6 +21,10 @@ import javax.inject.Singleton
 
 @Module
 class AppModule {
+    @Provides
+    fun transitionInflater(application: Application) : TransitionInflater {
+        return TransitionInflater.from(application)
+    }
     @MainDispatcher
     @Provides
     fun mainDispatchers(): CoroutineDispatcher = Dispatchers.Main.immediate
@@ -48,5 +54,4 @@ class AppModule {
     @Provides
     fun ksatriamuslimService(retrofit: Retrofit): KsatriaMuslimService =
         retrofit.create(KsatriaMuslimService::class.java)
-
 }

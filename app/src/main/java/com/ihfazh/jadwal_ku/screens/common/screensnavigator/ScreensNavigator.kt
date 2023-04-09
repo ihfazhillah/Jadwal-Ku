@@ -1,8 +1,10 @@
 package com.ihfazh.jadwal_ku.screens.common.screensnavigator
 
-import androidx.fragment.app.FragmentManager
+import android.transition.TransitionInflater
 import com.ihfazh.jadwal_ku.R
+import com.ihfazh.jadwal_ku.dependencyinjection.activity.ActivityScope
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
+import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentTransactionHelper
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
@@ -12,7 +14,7 @@ import com.ihfazh.jadwal_ku.screens.thumbnailview.ThumbnailViewFragment
 import javax.inject.Inject
 
 class ScreensNavigator @Inject constructor(
-    private val fragmentFrameHelper: FragmentFrameHelper
+    private val fragmentFrameHelper: FragmentFrameHelper,
 ) {
     fun goToHome(){
         fragmentFrameHelper.replaceFragmentDontAddToBackstack(HomeFragment())

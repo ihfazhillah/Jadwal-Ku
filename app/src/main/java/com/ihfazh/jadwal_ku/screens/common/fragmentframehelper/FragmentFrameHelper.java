@@ -28,6 +28,14 @@ public class FragmentFrameHelper {
 
     }
 
+    public void replaceFragment(Fragment newFragment, FragmentTransactionHelper ftHelper) {
+        if (getCurrentFragment().getClass().equals(newFragment.getClass())) {
+            return;
+        }
+        replaceFragment(newFragment, true, false, ftHelper);
+
+    }
+
     public void replaceFragmentDontAddToBackstack(Fragment newFragment) {
         replaceFragment(newFragment, false, false);
     }
@@ -97,6 +105,38 @@ public class FragmentFrameHelper {
 
         // Change to a new fragment
         ft.replace(getFragmentFrameId(), newFragment, null);
+
+        if (mFragmentManager.isStateSaved()) {
+            // We acknowledge the possibility of losing this transaction if the app undergoes
+            // save&restore flow after it is committed.
+            ft.commitAllowingStateLoss();
+        } else {
+            ft.commit();
+        }
+    }
+
+    private void replaceFragment(Fragment newFragment, boolean addToBackStack, boolean clearBackStack, FragmentTransactionHelper ftHelper) {
+        if (clearBackStack) {
+            if (mFragmentManager.isStateSaved()) {
+                // If the state is saved we can't clear the back stack. Simply not doing this, but
+                // still replacing fragment is a bad idea. Therefore we abort the entire operation.
+                return;
+            }
+            // Remove all entries from back stack
+            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
+        FragmentTransaction ft = mFragmentManager.beginTransaction();
+        ft = ftHelper.updateTransaction(ft);
+
+        if (addToBackStack) {
+            ft.addToBackStack(null);
+        }
+
+        // Change to a new fragment
+        ft.replace(getFragmentFrameId(), newFragment, null);
+
+        // manipulate transaction
 
         if (mFragmentManager.isStateSaved()) {
             // We acknowledge the possibility of losing this transaction if the app undergoes

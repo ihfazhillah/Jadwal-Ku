@@ -3,6 +3,7 @@ package com.ihfazh.jadwal_ku.dependencyinjection.activity
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.transition.TransitionInflater
 import com.ihfazh.jadwal_ku.screens.common.StringHelper
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameWrapper
