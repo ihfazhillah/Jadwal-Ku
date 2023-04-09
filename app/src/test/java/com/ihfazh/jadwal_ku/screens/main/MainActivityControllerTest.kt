@@ -8,6 +8,8 @@ import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
+import com.ihfazh.jadwal_ku.screens.login.LoginFragment
+import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -114,8 +116,18 @@ class MainActivityControllerTest {
         verify(viewMvc).showBottomNav()
     }
 
+    @Test fun `onFragmentChanged to settings display bottom navbar`(){
+        SUT.onFragmentChanged(SettingsFragment())
+        verify(viewMvc).showBottomNav()
+    }
+
     @Test fun `onFragmentChanged to another hide bottom navbar`(){
         SUT.onFragmentChanged(EventDetailFragment())
+        verify(viewMvc).hideBottomNav()
+    }
+
+    @Test fun `onFragmentChanged to login hide bottom navbar`(){
+        SUT.onFragmentChanged(LoginFragment())
         verify(viewMvc).hideBottomNav()
     }
 

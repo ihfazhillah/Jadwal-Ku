@@ -6,6 +6,7 @@ import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelp
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
+import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
 import com.ihfazh.jadwal_ku.screens.splashscreen.SplashScreenFragment
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class ScreensNavigator @Inject constructor(
     }
 
     fun goToLogin() {
-        fragmentFrameHelper.replaceFragmentDontAddToBackstack(LoginFragment())
+        fragmentFrameHelper.replaceFragmentAndClearBackstack(LoginFragment())
     }
 
     fun goToSplashScreen() {
@@ -38,7 +39,8 @@ class ScreensNavigator @Inject constructor(
     }
 
     fun goToSettings() {
-        /* noop for now */
+        val settingsFragment = SettingsFragment()
+        fragmentFrameHelper.replaceFragmentAndClearBackstack(settingsFragment)
     }
 
 

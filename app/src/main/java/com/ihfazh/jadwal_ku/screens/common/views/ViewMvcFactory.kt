@@ -8,6 +8,7 @@ import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailMvcView
 import com.ihfazh.jadwal_ku.screens.home.HomeMvcView
 import com.ihfazh.jadwal_ku.screens.login.LoginViewMvc
 import com.ihfazh.jadwal_ku.screens.main.MainViewMvc
+import com.ihfazh.jadwal_ku.screens.settings.SettingsViewMvc
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -37,5 +38,9 @@ class ViewMvcFactory @Inject constructor(
 
     fun newLoginMvcView(container: ViewGroup?): LoginViewMvc {
         return LoginViewMvc(layoutInflater.get(), container)
+    }
+
+    fun newSettingsView(container: ViewGroup?): SettingsViewMvc {
+        return SettingsViewMvc(layoutInflater.get(), container)
     }
 }

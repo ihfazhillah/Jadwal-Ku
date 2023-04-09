@@ -15,4 +15,8 @@ class AuthenticationStateManager @Inject constructor(
         settingsHelper.setToken(token)
     }
 
+    fun logout() {
+        settingsHelper.setToken("")
+    }
+
 }

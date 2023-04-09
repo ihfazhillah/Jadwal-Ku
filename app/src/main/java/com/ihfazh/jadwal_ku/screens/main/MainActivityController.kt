@@ -10,6 +10,7 @@ import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelp
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
+import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -66,11 +67,24 @@ class MainActivityController @Inject constructor(
 
 
     override fun onFragmentChanged(fragment: Fragment) {
-        if (fragment is HomeFragment){
-            viewMvc.showBottomNav()
-        } else {
-            viewMvc.hideBottomNav()
+        val withBottomNav = listOf(HomeFragment::class.java, SettingsFragment::class.java)
+
+        var shouldHide = true
+        withBottomNav.forEach { klass ->
+            if (fragment::class.java == klass){
+                viewMvc.showBottomNav()
+                shouldHide = false
+                return@forEach
+            }
         }
+
+        if (shouldHide) viewMvc.hideBottomNav()
+//
+//        if (fragment is HomeFragment){
+//            viewMvc.showBottomNav()
+//        } else {
+//            viewMvc.hideBottomNav()
+//        }
     }
 
 

@@ -21,6 +21,7 @@
         android:layout_height="80dp"
         android:id="@+id/bottomNavigation"
         app:menu="@menu/bottom_nav"
+        android:visibility="gone"
         />
 
 </LinearLayout>
