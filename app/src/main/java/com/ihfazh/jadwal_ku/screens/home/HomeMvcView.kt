@@ -9,8 +9,6 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.ihfazh.jadwal_ku.R
@@ -19,14 +17,14 @@ import com.ihfazh.jadwal_ku.event.EventLink
 import com.ihfazh.jadwal_ku.event.EventListItem
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.listviewhelper.AdjustHeightHelper
-import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
+import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class HomeMvcView(
     private val layoutInflater: LayoutInflater,
     parent: ViewGroup?,
     private val imageLoader: ImageLoader,
     private val adjustHeightHelper: AdjustHeightHelper
-): BaseMvcView<HomeMvcView.Listener>(layoutInflater, parent, R.layout.layout_home) {
+): ObservableMvcView<HomeMvcView.Listener>(layoutInflater, parent, R.layout.layout_home) {
 
     interface Listener{
         fun onReloadClick()

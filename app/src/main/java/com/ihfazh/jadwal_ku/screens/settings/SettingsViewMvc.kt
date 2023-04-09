@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.ihfazh.jadwal_ku.R
-import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
+import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class SettingsViewMvc(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?
-): BaseMvcView<SettingsViewMvc.Listener>(layoutInflater, parent, R.layout.layout_settings) {
+): ObservableMvcView<SettingsViewMvc.Listener>(layoutInflater, parent, R.layout.layout_settings) {
 
     interface Listener {
         fun onLogoutClicked()

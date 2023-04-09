@@ -13,13 +13,13 @@ import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.Event
 import com.ihfazh.jadwal_ku.event.EventUrlType
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
-import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
+import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class EventDetailMvcView(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?,
     private val imageLoader: ImageLoader
-): BaseMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail) {
+): ObservableMvcView<EventDetailMvcView.Listener>(layoutInflater, parent, R.layout.layout_event_detail) {
 
     interface Listener{
         fun onOpenButtonClick()

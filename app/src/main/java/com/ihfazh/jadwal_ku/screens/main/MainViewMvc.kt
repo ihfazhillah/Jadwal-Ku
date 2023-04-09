@@ -1,6 +1,5 @@
 package com.ihfazh.jadwal_ku.screens.main
 
-import android.bluetooth.le.ScanSettings
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Gravity
@@ -12,12 +11,11 @@ import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
-import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
-import javax.inject.Inject
+import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 class MainViewMvc (
     layoutInflater: LayoutInflater
-): BaseMvcView<MainViewMvc.Listener>(
+): ObservableMvcView<MainViewMvc.Listener>(
     layoutInflater,
     null,
     R.layout.activity_main

@@ -10,13 +10,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.authentication.LoginData
-import com.ihfazh.jadwal_ku.screens.common.views.BaseMvcView
+import com.ihfazh.jadwal_ku.screens.common.views.ObservableMvcView
 
 
 class LoginViewMvc(
     inflater: LayoutInflater,
     parent: ViewGroup?
-) : BaseMvcView<LoginViewMvc.Listener>(inflater, parent, R.layout.layout_login) {
+) : ObservableMvcView<LoginViewMvc.Listener>(inflater, parent, R.layout.layout_login) {
 
     interface Listener {
         fun onLoginClick()
