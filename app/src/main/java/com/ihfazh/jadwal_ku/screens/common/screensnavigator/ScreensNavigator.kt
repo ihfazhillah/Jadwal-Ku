@@ -16,6 +16,10 @@ class ScreensNavigator @Inject constructor(
         fragmentFrameHelper.replaceFragmentDontAddToBackstack(HomeFragment())
     }
 
+    fun goToHomeAndAddToBackstacks() {
+        fragmentFrameHelper.replaceFragment(HomeFragment())
+    }
+
     fun goToLogin() {
         fragmentFrameHelper.replaceFragmentDontAddToBackstack(LoginFragment())
     }
@@ -28,6 +32,15 @@ class ScreensNavigator @Inject constructor(
         val eventDetailFragment = EventDetailFragment.newInstance(eventId)
         fragmentFrameHelper.replaceFragment(eventDetailFragment)
     }
+
+    fun goToEvents() {
+        /* noop for now */
+    }
+
+    fun goToSettings() {
+        /* noop for now */
+    }
+
 
     fun navigateUp() {
         fragmentFrameHelper.navigateUp()
