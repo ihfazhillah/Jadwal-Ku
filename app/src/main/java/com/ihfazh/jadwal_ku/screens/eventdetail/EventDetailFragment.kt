@@ -35,7 +35,7 @@ class EventDetailFragment: BaseFragment() {
 
     override fun onStop() {
         super.onStop()
-        detailController.onStart()
+        detailController.onStop()
     }
 
     private fun getEventDetailId(): String {
