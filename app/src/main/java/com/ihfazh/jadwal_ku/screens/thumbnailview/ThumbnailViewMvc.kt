@@ -30,7 +30,7 @@ class ThumbnailViewMvc(
     }
 
     fun bindImage(url: String){
-        imageLoader.loadImage(url, imageView)
+        imageLoader.loadImageCenterInside(url, imageView)
     }
 
     override fun onBackPressed() {

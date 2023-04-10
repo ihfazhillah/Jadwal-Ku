@@ -1,5 +1,6 @@
 package com.ihfazh.jadwal_ku.screens.home
 
+import android.view.View
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase.CurrentEventResponse

@@ -36,8 +36,11 @@ class ThumbnailViewFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
         super.onCreate(savedInstanceState)
+
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.shared_image)
+        enterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(android.R.transition.explode);
     }
 
     override fun onStart() {

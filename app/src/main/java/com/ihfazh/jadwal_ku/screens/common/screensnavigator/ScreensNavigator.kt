@@ -1,6 +1,8 @@
 package com.ihfazh.jadwal_ku.screens.common.screensnavigator
 
 import android.transition.TransitionInflater
+import android.view.View
+import androidx.fragment.app.FragmentTransaction
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.dependencyinjection.activity.ActivityScope
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
@@ -37,6 +39,11 @@ class ScreensNavigator @Inject constructor(
         fragmentFrameHelper.replaceFragment(eventDetailFragment)
     }
 
+    fun goToEventDetail(eventId: String, ftCombiner: (FragmentTransaction) -> FragmentTransaction){
+        val eventDetailFragment = EventDetailFragment.newInstance(eventId)
+        fragmentFrameHelper.replaceFragment(eventDetailFragment, ftCombiner)
+    }
+
     fun goToEvents() {
         /* noop for now */
     }
@@ -54,6 +61,10 @@ class ScreensNavigator @Inject constructor(
     fun goToImageThumbnailView(url: String) {
         val fragment = ThumbnailViewFragment.newInstance(url)
         fragmentFrameHelper.replaceFragment(fragment)
+    }
+    fun goToImageThumbnailView(url: String, ftCombiner: (FragmentTransaction) -> FragmentTransaction){
+        val eventDetailFragment = ThumbnailViewFragment.newInstance(url)
+        fragmentFrameHelper.replaceFragment(eventDetailFragment, ftCombiner)
     }
 
 }

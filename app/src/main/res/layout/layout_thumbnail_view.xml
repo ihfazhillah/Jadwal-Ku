@@ -23,7 +23,7 @@
         android:layout_marginBottom="@dimen/containerSpace"
         android:layout_marginTop="@dimen/containerSpace"
         android:id="@+id/imgView"
-        android:transitionName="@string/imgListToDetailTransition"
+        android:transitionName="img_thumbnail"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment;
+
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Inject;
+
+import kotlin.jvm.functions.Function1;
 
 public class FragmentFrameHelper {
     private final AppCompatActivity mActivity;
@@ -161,5 +167,42 @@ public class FragmentFrameHelper {
     }
 
 
+    public void replaceFragment(@NotNull Fragment newFragment, @NotNull Function1<? super FragmentTransaction, ? extends FragmentTransaction> ftCombiner) {
+        if (getCurrentFragment().getClass().equals(newFragment.getClass())) {
+            return;
+        }
 
+        boolean clearBackStack = false;
+        boolean addToBackStack = true;
+
+        if (clearBackStack) {
+            if (mFragmentManager.isStateSaved()) {
+                // If the state is saved we can't clear the back stack. Simply not doing this, but
+                // still replacing fragment is a bad idea. Therefore we abort the entire operation.
+                return;
+            }
+            // Remove all entries from back stack
+            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
+        FragmentTransaction ft = mFragmentManager.beginTransaction();
+
+        if (addToBackStack) {
+            ft.addToBackStack(null);
+        }
+
+        // Change to a new fragment
+        ft.replace(getFragmentFrameId(), newFragment, null);
+        ft = ftCombiner.invoke(ft);
+
+        // manipulate transaction
+
+        if (mFragmentManager.isStateSaved()) {
+            // We acknowledge the possibility of losing this transaction if the app undergoes
+            // save&restore flow after it is committed.
+            ft.commitAllowingStateLoss();
+        } else {
+            ft.commit();
+        }
+    }
 }

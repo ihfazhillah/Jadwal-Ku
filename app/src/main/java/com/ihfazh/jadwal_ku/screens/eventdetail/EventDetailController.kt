@@ -73,8 +73,11 @@ class EventDetailController @Inject constructor(
         navigator.navigateUp()
     }
 
-    override fun onImageClick(imageUrl: String) {
-        navigator.goToImageThumbnailView(imageUrl)
+    override fun onImageClick(imageUrl: String, view: View) {
+        navigator.goToImageThumbnailView(imageUrl){ ft ->
+            ft.addSharedElement(view, "img_thumbnail")
+            ft
+        }
     }
 
     private fun getEventDetail() {

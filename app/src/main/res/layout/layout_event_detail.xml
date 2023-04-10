@@ -76,7 +76,7 @@
             android:layout_height="208dp"
             tools:src="@tools:sample/backgrounds/scenic"
             app:layout_constraintTop_toTopOf="parent"
-            android:transitionName="image in detail"
+            android:transitionName="img_thumbnail"
             android:contentDescription="@string/event_thumbnail" />
 
         <TextView

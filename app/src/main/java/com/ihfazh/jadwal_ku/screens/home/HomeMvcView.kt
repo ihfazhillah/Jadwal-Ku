@@ -187,7 +187,7 @@ class HomeMvcView(
                 imageLoader.loadImage(item.thumbnailUrl, holder.imgThumbnail)
                 holder.lblTitle.text = item.title
                 holder.lblDateTime.text = "${item.date} ${item.time}"
-                view.setOnClickListener{
+                view.setOnClickListener{ view ->
                     listeners.forEach { listener ->
                         listener.onUpcomingClick(item.id)
                     }
