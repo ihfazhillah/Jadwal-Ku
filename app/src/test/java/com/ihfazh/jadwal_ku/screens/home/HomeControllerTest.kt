@@ -22,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeControllerTest{
-    private lateinit var SUT: EventController
+    private lateinit var SUT: HomeController
     private lateinit var getCurrentUseCaseTD: GetCurrentUseCaseTD
     private lateinit var getUpcomingEventsTD: GetUpcomingEventUseCaseTD
     private lateinit var dispatcher: TestDispatcher
@@ -38,7 +38,7 @@ class HomeControllerTest{
         getUpcomingEventsTD = GetUpcomingEventUseCaseTD()
         dispatcher = UnconfinedTestDispatcher()
 
-        SUT = EventController(
+        SUT = HomeController(
             getCurrentUseCaseTD,
             getUpcomingEventsTD,
             toastHelperMock,
