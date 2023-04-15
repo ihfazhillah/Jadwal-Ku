@@ -96,12 +96,9 @@ class EventListViewMvc(
         private val events: ArrayList<EventListItem?> = arrayListOf()
 
         fun bindEvents(events: List<EventListItem>){
-            // Fixme: how to handle notify only added
-            // fixme: how to preserve the list when action back
-            val currentIndex = events.size
+            val currentIndex = this.events.size
             this.events.addAll(events)
-//            no(currentIndex, events.size)
-            notifyDataSetChanged()
+            notifyItemRangeInserted(currentIndex, events.size)
         }
 
         fun showLoadingIndicator(){

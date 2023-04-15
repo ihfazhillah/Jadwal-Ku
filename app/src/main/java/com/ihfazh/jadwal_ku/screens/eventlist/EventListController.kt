@@ -50,6 +50,7 @@ class EventListController @Inject constructor(
     fun onStop(){
         coroutineScope.coroutineContext.cancelChildren()
         viewMvc.unregisterListener(this)
+        page = 1
     }
 
     override fun onEventClick(eventId: String) {

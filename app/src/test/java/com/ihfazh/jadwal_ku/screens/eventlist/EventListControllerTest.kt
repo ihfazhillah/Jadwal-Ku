@@ -119,12 +119,21 @@ class EventListControllerTest {
         assertEquals(getUpcomingEventsTD.callCounts, 2)
     }
 
+    @Test
+    fun `second onStart after onLastEventItemReached should starts from page one`() = runTest {
+        SUT.onStart()
+        SUT.onLastEventItemReached()
+        SUT.onStop()
+
+        SUT.onStart()
+        assertEquals(getUpcomingEventsTD.page, 1)
+    }
+
     /*
     TODOS:
     - handle error to display loading dialog
     - on error display appropriate error message in the main list
     - on empty list display appropriate message and retry button
-    - handle infinite scrolling (waiting for backend implementation)
      */
 
 }
