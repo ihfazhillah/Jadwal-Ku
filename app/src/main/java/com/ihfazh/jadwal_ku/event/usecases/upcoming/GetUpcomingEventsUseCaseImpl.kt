@@ -15,10 +15,10 @@ class GetUpcomingEventsUseCaseImpl(
     private val mediaUrlHelper: MediaUrlHelper
 ) : GetUpcomingEventsUseCase {
 
-    override suspend fun getUpcomingEvents(): UpcomingEventsResponse {
+    override suspend fun getUpcomingEvents(limit: Int, page: Int): UpcomingEventsResponse {
         return withContext(Dispatchers.IO){
             try {
-                val resp = remoteService.getUpcomingEvents()
+                val resp = remoteService.getUpcomingEvents(limit, page)
                 if (resp.events.isNotEmpty()){
                     return@withContext UpcomingEventsResponse.Success(resp.events.toDomain(mediaUrlHelper))
                 }

@@ -59,6 +59,8 @@ class EventListControllerTest {
     fun `onStart fetch events`(){
         SUT.onStart()
         assertEquals(getUpcomingEventsTD.callCounts, 1)
+        assertEquals(getUpcomingEventsTD.page, 1)
+        assertEquals(getUpcomingEventsTD.limit, 10)
     }
     // on start fetch the event list
     // on event list load finished success hide loading

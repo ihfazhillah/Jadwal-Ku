@@ -10,5 +10,8 @@ interface GetUpcomingEventsUseCase {
         object NetworkError: UpcomingEventsResponse()
         object GeneralError: UpcomingEventsResponse()
     }
-    suspend fun getUpcomingEvents(): UpcomingEventsResponse
+    suspend fun getUpcomingEvents(
+        limit: Int = 5,
+        page: Int = 1
+    ): UpcomingEventsResponse
 }

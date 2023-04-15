@@ -8,7 +8,7 @@ import javax.inject.Inject
 class InMemoryGetUpcomingEventsUseCase @Inject constructor(): GetUpcomingEventsUseCase {
     private var count = 0
 
-    override suspend fun getUpcomingEvents(): UpcomingEventsResponse {
+    override suspend fun getUpcomingEvents(limit: Int, page: Int): UpcomingEventsResponse {
         delay(1000)
         return UpcomingEventsResponse.Success(EventProvider.provideEventList())
     }

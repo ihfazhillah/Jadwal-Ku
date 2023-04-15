@@ -8,7 +8,17 @@ class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase {
     var generalError = false
     var networkError = false
     var callCounts = 0
-    override suspend fun getUpcomingEvents(): GetUpcomingEventsUseCase.UpcomingEventsResponse {
+
+    var page : Int? = null
+    var limit: Int? = null
+
+    override suspend fun getUpcomingEvents(
+        limit: Int,
+        page: Int
+    ): GetUpcomingEventsUseCase.UpcomingEventsResponse {
+        this.page = page
+        this.limit = limit
+
         callCounts += 1
         if (empty){
             return GetUpcomingEventsUseCase.UpcomingEventsResponse.EmptyEvent

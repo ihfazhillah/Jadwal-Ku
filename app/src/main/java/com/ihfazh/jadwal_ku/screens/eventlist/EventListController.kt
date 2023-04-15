@@ -16,6 +16,8 @@ class EventListController @Inject constructor(
 
     private lateinit var viewMvc: EventListViewMvc
 
+    private var page = 1
+
     fun bindView(viewMvc: EventListViewMvc){
         this.viewMvc = viewMvc
     }
@@ -28,7 +30,7 @@ class EventListController @Inject constructor(
     private fun fetchUpcomingEvents() {
         viewMvc.showLoadingIndicator()
         coroutineScope.launch {
-            val resp = getUpcomingEventsTD.getUpcomingEvents()
+            val resp = getUpcomingEventsTD.getUpcomingEvents(limit = EVENTS_LIMIT, page = page)
             if (resp is UpcomingEventsResponse.Success) {
                 viewMvc.bindEvents(resp.events)
             }
@@ -44,5 +46,9 @@ class EventListController @Inject constructor(
 
     override fun onEventClick(eventId: String) {
         screensNavigator.goToEventDetail(eventId)
+    }
+
+    companion object {
+        private const val EVENTS_LIMIT = 10
     }
 }

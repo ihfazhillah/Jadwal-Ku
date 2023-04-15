@@ -14,7 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.HttpException
 import retrofit2.Response
@@ -75,5 +75,14 @@ class GetUpcomingEventsUseCaseImplTest {
                 EventListItem("1",  "https://cms.ksatriamuslim.com/media/png.png","title", "100", "100")
             )
         ))
+    }
+
+    @Test
+    fun `getUpcomingEvents should pass correct argument`() = runTest {
+        `when`(remoteServiceMock.getUpcomingEvents(1, 10)).thenReturn(UpcomingEventsSchema(
+            listOf(EventListItemSchema("1", "title", "/media/png.png", "100", "100"))
+        ))
+        SUT.getUpcomingEvents(1, 10)
+        verify(remoteServiceMock).getUpcomingEvents(1, 10)
     }
 }
