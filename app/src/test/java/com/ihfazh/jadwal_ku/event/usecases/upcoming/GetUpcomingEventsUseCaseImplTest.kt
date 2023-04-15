@@ -85,4 +85,15 @@ class GetUpcomingEventsUseCaseImplTest {
         SUT.getUpcomingEvents(1, 10)
         verify(remoteServiceMock).getUpcomingEvents(1, 10)
     }
+
+    @Test
+    fun `getUpcomingEvents should pass hasNextTrue`() = runTest {
+        `when`(remoteServiceMock.getUpcomingEvents(1, 10)).thenReturn(UpcomingEventsSchema(
+            listOf(EventListItemSchema("1", "title", "/media/png.png", "100", "100")),
+            hasNext = true
+        ))
+        val resp = SUT.getUpcomingEvents(1, 10)
+        verify(remoteServiceMock).getUpcomingEvents(1, 10)
+        assertTrue((resp as UpcomingEventsResponse.Success).hasNext)
+    }
 }

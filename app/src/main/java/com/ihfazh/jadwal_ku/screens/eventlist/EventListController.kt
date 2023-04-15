@@ -1,5 +1,6 @@
 package com.ihfazh.jadwal_ku.screens.eventlist
 
+import android.util.Log
 import com.ihfazh.jadwal_ku.dependencyinjection.MainDispatcher
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase.UpcomingEventsResponse
@@ -17,6 +18,10 @@ class EventListController @Inject constructor(
     private lateinit var viewMvc: EventListViewMvc
 
     private var page = 1
+    private var hasNext = false
+
+    // fetchingState public? We need to somehow test the fetchingState
+    var fetching = false
 
     fun bindView(viewMvc: EventListViewMvc){
         this.viewMvc = viewMvc
@@ -29,11 +34,14 @@ class EventListController @Inject constructor(
 
     private fun fetchUpcomingEvents() {
         viewMvc.showLoadingIndicator()
+        fetching = true
         coroutineScope.launch {
             val resp = getUpcomingEventsTD.getUpcomingEvents(limit = EVENTS_LIMIT, page = page)
             if (resp is UpcomingEventsResponse.Success) {
+                hasNext = resp.hasNext
                 viewMvc.bindEvents(resp.events)
             }
+            fetching = false
             viewMvc.hideLoadingIndicator()
         }
     }
@@ -48,7 +56,14 @@ class EventListController @Inject constructor(
         screensNavigator.goToEventDetail(eventId)
     }
 
+    override fun onLastEventItemReached() {
+        if (!fetching && hasNext){
+            page += 1
+            fetchUpcomingEvents()
+        }
+    }
+
     companion object {
-        private const val EVENTS_LIMIT = 10
+        private const val EVENTS_LIMIT = 5
     }
 }

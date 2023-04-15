@@ -5,7 +5,7 @@ import com.ihfazh.jadwal_ku.event.EventListItem
 
 interface GetUpcomingEventsUseCase {
     sealed class UpcomingEventsResponse {
-        data class Success(val events: List<EventListItem>): UpcomingEventsResponse()
+        data class Success(val events: List<EventListItem>, val hasNext: Boolean = false): UpcomingEventsResponse()
         object EmptyEvent: UpcomingEventsResponse()
         object NetworkError: UpcomingEventsResponse()
         object GeneralError: UpcomingEventsResponse()

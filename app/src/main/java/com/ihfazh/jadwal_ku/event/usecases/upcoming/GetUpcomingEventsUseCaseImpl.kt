@@ -20,7 +20,7 @@ class GetUpcomingEventsUseCaseImpl(
             try {
                 val resp = remoteService.getUpcomingEvents(limit, page)
                 if (resp.events.isNotEmpty()){
-                    return@withContext UpcomingEventsResponse.Success(resp.events.toDomain(mediaUrlHelper))
+                    return@withContext UpcomingEventsResponse.Success(resp.events.toDomain(mediaUrlHelper), hasNext = resp.hasNext)
                 }
             } catch (e: HttpException){
                 return@withContext UpcomingEventsResponse.GeneralError

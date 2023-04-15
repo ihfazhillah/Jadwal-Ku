@@ -9,6 +9,8 @@ class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase {
     var networkError = false
     var callCounts = 0
 
+    var hasNext = true
+
     var page : Int? = null
     var limit: Int? = null
 
@@ -28,7 +30,7 @@ class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase {
         }
         if (networkError)
             return GetUpcomingEventsUseCase.UpcomingEventsResponse.NetworkError
-        return GetUpcomingEventsUseCase.UpcomingEventsResponse.Success(EventProvider.provideEventList())
+        return GetUpcomingEventsUseCase.UpcomingEventsResponse.Success(EventProvider.provideEventList(), hasNext)
     }
 
 }

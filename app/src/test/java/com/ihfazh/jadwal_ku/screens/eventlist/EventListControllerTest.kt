@@ -16,6 +16,8 @@ import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
+private const val PAGE_LIMIT = 5
+
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class EventListControllerTest {
@@ -60,7 +62,7 @@ class EventListControllerTest {
         SUT.onStart()
         assertEquals(getUpcomingEventsTD.callCounts, 1)
         assertEquals(getUpcomingEventsTD.page, 1)
-        assertEquals(getUpcomingEventsTD.limit, 10)
+        assertEquals(getUpcomingEventsTD.limit, PAGE_LIMIT)
     }
     // on start fetch the event list
     // on event list load finished success hide loading
@@ -82,6 +84,39 @@ class EventListControllerTest {
     fun `onEventClick navigate to event detail`() {
         SUT.onEventClick("abc")
         verify(screensNavigatorMock).goToEventDetail("abc")
+    }
+
+    @Test
+    fun `onLastEventItemReached increase page`() = runTest{
+        SUT.onStart()
+        SUT.onLastEventItemReached()
+        assertEquals(getUpcomingEventsTD.page, 2)
+        assertEquals(getUpcomingEventsTD.callCounts, 2)
+    }
+
+    @Test
+    fun `onLastEventItemReached dont trigger if fetching state still true`() = runTest{
+        SUT.onStart()
+        SUT.fetching = true
+
+        SUT.onLastEventItemReached()
+        assertEquals(getUpcomingEventsTD.page, 1)
+        assertEquals(getUpcomingEventsTD.callCounts, 1)
+
+        SUT.fetching = false
+        SUT.onLastEventItemReached()
+        assertEquals(getUpcomingEventsTD.page, 2)
+        assertEquals(getUpcomingEventsTD.callCounts, 2)
+    }
+
+    @Test
+    fun `onLastEventItemReached dont trigger if no next`() = runTest {
+        SUT.onStart()
+        getUpcomingEventsTD.hasNext = false
+        SUT.onLastEventItemReached()
+        SUT.onLastEventItemReached()
+        assertEquals(getUpcomingEventsTD.page, 2)
+        assertEquals(getUpcomingEventsTD.callCounts, 2)
     }
 
     /*

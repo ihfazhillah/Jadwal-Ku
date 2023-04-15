@@ -22,6 +22,7 @@ class EventListViewMvc(
 
     interface Listener {
         fun onEventClick(eventId: String)
+        fun onLastEventItemReached()
     }
 
     val toolbar: FrameLayout = findViewById(R.id.toolbar)
@@ -32,20 +33,45 @@ class EventListViewMvc(
 
     init {
         setupToolbar()
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         rvUpcoming.adapter = adapter
-        rvUpcoming.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvUpcoming.layoutManager = layoutManager
+
+        rvUpcoming.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == adapter.itemCount - 1){
+                    rvUpcoming.post{
+                        listeners.forEach { listener -> listener.onLastEventItemReached() }
+                    }
+                }
+
+            }
+        })
     }
 
     fun bindEvents(events: List<EventListItem>){
-        adapter.bindEvents(events)
+        rvUpcoming.post{
+            adapter.bindEvents(events)
+        }
     }
 
     fun showLoadingIndicator(){
-        adapter.showLoadingIndicator()
+        rvUpcoming.post {
+            adapter.showLoadingIndicator()
+        }
     }
 
     fun hideLoadingIndicator(){
-        adapter.hideLoadingIndicator()
+        rvUpcoming.post {
+            adapter.hideLoadingIndicator()
+        }
     }
 
     private fun setupToolbar() {
@@ -70,9 +96,12 @@ class EventListViewMvc(
         private val events: ArrayList<EventListItem?> = arrayListOf()
 
         fun bindEvents(events: List<EventListItem>){
+            // Fixme: how to handle notify only added
+            // fixme: how to preserve the list when action back
             val currentIndex = events.size
             this.events.addAll(events)
-            notifyItemRangeInserted(currentIndex, events.size)
+//            no(currentIndex, events.size)
+            notifyDataSetChanged()
         }
 
         fun showLoadingIndicator(){
