@@ -3,7 +3,7 @@ package com.ihfazh.jadwal_ku.screens.home
 import com.ihfazh.jadwal_ku.event.*
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase
 import com.ihfazh.jadwal_ku.event.usecases.current.GetCurrentEventUseCase.*
-import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase
+import com.ihfazh.jadwal_ku.event.usecases.testdoubles.GetUpcomingEventUseCaseTD
 import com.ihfazh.jadwal_ku.event.usecases.upcoming.GetUpcomingEventsUseCase.*
 import com.ihfazh.jadwal_ku.screens.common.ToastHelper
 import com.ihfazh.jadwal_ku.screens.common.intenthelper.IntentHelper
@@ -291,25 +291,5 @@ class HomeControllerTest{
         }
     }
 
-
-    class GetUpcomingEventUseCaseTD: GetUpcomingEventsUseCase {
-        var empty = false
-        var generalError = false
-        var networkError = false
-        var callCounts = 0
-        override suspend fun getUpcomingEvents(): UpcomingEventsResponse {
-            callCounts += 1
-            if (empty){
-                return UpcomingEventsResponse.EmptyEvent
-            }
-            if (generalError){
-                return UpcomingEventsResponse.GeneralError
-            }
-            if (networkError)
-                return UpcomingEventsResponse.NetworkError
-            return UpcomingEventsResponse.Success(EventProvider.provideEventList())
-        }
-
-    }
 
 }

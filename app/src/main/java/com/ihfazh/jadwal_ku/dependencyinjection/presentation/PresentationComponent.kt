@@ -1,6 +1,7 @@
 package com.ihfazh.jadwal_ku.dependencyinjection.presentation
 
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
@@ -15,6 +16,8 @@ interface PresentationComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(thumbnailViewFragment: ThumbnailViewFragment)
+    fun inject(eventListFragment: EventListFragment)
+
 
 
 }

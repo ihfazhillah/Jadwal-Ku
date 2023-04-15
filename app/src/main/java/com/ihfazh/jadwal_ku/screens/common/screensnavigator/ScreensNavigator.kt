@@ -8,6 +8,7 @@ import com.ihfazh.jadwal_ku.dependencyinjection.activity.ActivityScope
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentTransactionHelper
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
@@ -45,7 +46,8 @@ class ScreensNavigator @Inject constructor(
     }
 
     fun goToEvents() {
-        /* noop for now */
+        val eventListFragment = EventListFragment()
+        fragmentFrameHelper.replaceFragmentAndClearBackstack(eventListFragment)
     }
 
     fun goToSettings() {

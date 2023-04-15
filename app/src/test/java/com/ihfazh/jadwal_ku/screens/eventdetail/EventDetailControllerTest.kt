@@ -174,7 +174,7 @@ class EventDetailControllerTest {
 
     @Test
     fun `onImageClick should navigate to image thumbnail view`(){
-        SUT.onImageClick("hello")
+        SUT.onImageClick("hello", mock())
         verify(navigatorMock).goToImageThumbnailView("hello")
     }
 

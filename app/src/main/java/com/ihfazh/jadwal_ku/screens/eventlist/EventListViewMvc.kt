@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.EventListItem
@@ -32,6 +33,7 @@ class EventListViewMvc(
     init {
         setupToolbar()
         rvUpcoming.adapter = adapter
+        rvUpcoming.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     fun bindEvents(events: List<EventListItem>){

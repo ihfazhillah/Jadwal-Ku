@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.ihfazh.jadwal_ku.screens.common.imageloader.ImageLoader
 import com.ihfazh.jadwal_ku.screens.common.listviewhelper.AdjustHeightHelper
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailMvcView
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListViewMvc
 import com.ihfazh.jadwal_ku.screens.home.HomeMvcView
 import com.ihfazh.jadwal_ku.screens.login.LoginViewMvc
 import com.ihfazh.jadwal_ku.screens.main.MainViewMvc
@@ -47,5 +48,13 @@ class ViewMvcFactory @Inject constructor(
 
     fun newThumbnailViewMvc(container: ViewGroup?): ThumbnailViewMvc {
         return ThumbnailViewMvc(layoutInflater.get(), container, imageLoader.get())
+    }
+
+    fun newEventListViewMvc(parent: ViewGroup?): EventListViewMvc {
+        return EventListViewMvc(
+            layoutInflater.get(),
+            parent,
+            imageLoader.get()
+        )
     }
 }

@@ -9,6 +9,7 @@ import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentChangeHel
 import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelper
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListFragment
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
 import kotlinx.coroutines.*
@@ -67,7 +68,11 @@ class MainActivityController @Inject constructor(
 
 
     override fun onFragmentChanged(fragment: Fragment) {
-        val withBottomNav = listOf(HomeFragment::class.java, SettingsFragment::class.java)
+        val withBottomNav = listOf(
+            HomeFragment::class.java,
+            SettingsFragment::class.java,
+            EventListFragment::class.java
+        )
 
         var shouldHide = true
         withBottomNav.forEach { klass ->
@@ -79,12 +84,6 @@ class MainActivityController @Inject constructor(
         }
 
         if (shouldHide) viewMvc.hideBottomNav()
-//
-//        if (fragment is HomeFragment){
-//            viewMvc.showBottomNav()
-//        } else {
-//            viewMvc.hideBottomNav()
-//        }
     }
 
 

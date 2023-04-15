@@ -7,6 +7,8 @@ import com.ihfazh.jadwal_ku.screens.common.fragmentframehelper.FragmentFrameHelp
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreenKey
 import com.ihfazh.jadwal_ku.screens.common.screensnavigator.ScreensNavigator
 import com.ihfazh.jadwal_ku.screens.eventdetail.EventDetailFragment
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListFragment
+import com.ihfazh.jadwal_ku.screens.eventlist.EventListViewMvc
 import com.ihfazh.jadwal_ku.screens.home.HomeFragment
 import com.ihfazh.jadwal_ku.screens.login.LoginFragment
 import com.ihfazh.jadwal_ku.screens.settings.SettingsFragment
@@ -118,6 +120,11 @@ class MainActivityControllerTest {
 
     @Test fun `onFragmentChanged to settings display bottom navbar`(){
         SUT.onFragmentChanged(SettingsFragment())
+        verify(viewMvc).showBottomNav()
+    }
+
+    @Test fun `onFragmentChanged to event list display bottom navbar`(){
+        SUT.onFragmentChanged(EventListFragment())
         verify(viewMvc).showBottomNav()
     }
 
