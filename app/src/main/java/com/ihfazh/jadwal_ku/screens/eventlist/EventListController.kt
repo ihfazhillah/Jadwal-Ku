@@ -11,17 +11,12 @@ import javax.inject.Inject
 class EventListController @Inject constructor(
     private val getUpcomingEventsTD: GetUpcomingEventsUseCase,
     private val screensNavigator: ScreensNavigator,
+    private val eventListStateManager: EventListStateManager,
     @MainDispatcher dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
 ) : EventListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(dispatcher)
 
     private lateinit var viewMvc: EventListViewMvc
-
-    private var page = 1
-    private var hasNext = false
-
-    // fetchingState public? We need to somehow test the fetchingState
-    var fetching = false
 
     fun bindView(viewMvc: EventListViewMvc){
         this.viewMvc = viewMvc
@@ -34,14 +29,14 @@ class EventListController @Inject constructor(
 
     private fun fetchUpcomingEvents() {
         viewMvc.showLoadingIndicator()
-        fetching = true
+        eventListStateManager.loading = true
         coroutineScope.launch {
-            val resp = getUpcomingEventsTD.getUpcomingEvents(limit = EVENTS_LIMIT, page = page)
+            val resp = getUpcomingEventsTD.getUpcomingEvents(limit = EVENTS_LIMIT, page = eventListStateManager.page)
             if (resp is UpcomingEventsResponse.Success) {
-                hasNext = resp.hasNext
+                eventListStateManager.hasNext = resp.hasNext
                 viewMvc.bindEvents(resp.events)
             }
-            fetching = false
+            eventListStateManager.loading = false
             viewMvc.hideLoadingIndicator()
         }
     }
@@ -50,7 +45,7 @@ class EventListController @Inject constructor(
     fun onStop(){
         coroutineScope.coroutineContext.cancelChildren()
         viewMvc.unregisterListener(this)
-        page = 1
+        eventListStateManager.reset()
     }
 
     override fun onEventClick(eventId: String) {
@@ -58,8 +53,8 @@ class EventListController @Inject constructor(
     }
 
     override fun onLastEventItemReached() {
-        if (!fetching && hasNext){
-            page += 1
+        if (eventListStateManager.canGoNext()){
+            eventListStateManager.nextPage()
             fetchUpcomingEvents()
         }
     }

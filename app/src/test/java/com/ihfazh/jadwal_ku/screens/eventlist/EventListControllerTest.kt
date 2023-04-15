@@ -24,6 +24,7 @@ class EventListControllerTest {
 
     private lateinit var SUT: EventListController
     private lateinit var getUpcomingEventsTD: GetUpcomingEventUseCaseTD
+    private lateinit var eventListStateManager: EventListStateManager
 
     @Mock lateinit var viewMvcMock: EventListViewMvc
     @Mock lateinit var screensNavigatorMock: ScreensNavigator
@@ -31,9 +32,12 @@ class EventListControllerTest {
     @Before
     fun setUp() {
         getUpcomingEventsTD = GetUpcomingEventUseCaseTD()
+        eventListStateManager = EventListStateManager()
+
         SUT = EventListController(
             getUpcomingEventsTD,
             screensNavigatorMock,
+            eventListStateManager,
             UnconfinedTestDispatcher()
         )
         SUT.bindView(viewMvcMock)
@@ -97,13 +101,13 @@ class EventListControllerTest {
     @Test
     fun `onLastEventItemReached dont trigger if fetching state still true`() = runTest{
         SUT.onStart()
-        SUT.fetching = true
+        eventListStateManager.loading = true
 
         SUT.onLastEventItemReached()
         assertEquals(getUpcomingEventsTD.page, 1)
         assertEquals(getUpcomingEventsTD.callCounts, 1)
 
-        SUT.fetching = false
+        eventListStateManager.loading = false
         SUT.onLastEventItemReached()
         assertEquals(getUpcomingEventsTD.page, 2)
         assertEquals(getUpcomingEventsTD.callCounts, 2)
