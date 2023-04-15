@@ -1,13 +1,11 @@
 package com.ihfazh.jadwal_ku.screens.eventlist
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihfazh.jadwal_ku.R
 import com.ihfazh.jadwal_ku.event.EventListItem
@@ -40,45 +38,93 @@ class EventListViewMvc(
         adapter.bindEvents(events)
     }
 
+    fun showLoadingIndicator(){
+        adapter.showLoadingIndicator()
+    }
+
+    fun hideLoadingIndicator(){
+        adapter.hideLoadingIndicator()
+    }
+
     private fun setupToolbar() {
         toolbarViewMvc.setTitle("Akan Datang")
         toolbar.addView(toolbarViewMvc.rootView)
     }
 
 
-    inner class UpcomingEventsRecyclerViewAdapter: RecyclerView.Adapter<UpcomingEventsRecyclerViewAdapter.ViewHolder>(){
-        inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class UpcomingEventsRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
+        inner class EventItemViewHolder(view: View): RecyclerView.ViewHolder(view){
             val imgThumbnail: ImageView = view.findViewById(R.id.imgThumbnail)
             val lblTitle: TextView = view.findViewById(R.id.lblTitle)
             val lblDateTime: TextView = view.findViewById(R.id.lblDateTime)
         }
 
-        private val events: ArrayList<EventListItem> = arrayListOf()
-
-        fun bindEvents(events: List<EventListItem>){
-            this.events.clear()
-            this.events.addAll(events)
-            notifyDataSetChanged()
+        inner class EventLoadingViewHolder(view: View): RecyclerView.ViewHolder(view){
+            /* no op */
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_event, parent, false)
-            return ViewHolder(view)
+        private val events: ArrayList<EventListItem?> = arrayListOf()
+
+        fun bindEvents(events: List<EventListItem>){
+            val currentIndex = events.size
+            this.events.addAll(events)
+            notifyItemRangeInserted(currentIndex, events.size)
+        }
+
+        fun showLoadingIndicator(){
+            this.events.add(null)
+            notifyItemInserted(this.events.size)
+        }
+
+        fun hideLoadingIndicator(){
+            val lastIndex = this.events.size
+            this.events.remove(null)
+            notifyItemRemoved(lastIndex)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return if (viewType == EVENT_ITEM_TYPE){
+                val view = layoutInflater.inflate(R.layout.list_item_event, parent, false)
+                EventItemViewHolder(view)
+            } else {
+                val view = layoutInflater.inflate(R.layout.layout_item_loading, parent, false)
+                EventLoadingViewHolder(view)
+            }
         }
 
         override fun getItemCount(): Int {
             return events.size
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun getItemViewType(position: Int): Int {
             val event = events[position]
-            holder.lblTitle.text = event.title
-            holder.lblDateTime.text = "${event.date} ${event.time}"
-            imageLoader.loadImage(event.thumbnailUrl, holder.imgThumbnail)
-            holder.itemView.setOnClickListener {
-                listeners.forEach { listener -> listener.onEventClick(event.id) }
+            return if (event === null){
+                EVENT_LOADING_TYPE
+            } else {
+                EVENT_ITEM_TYPE
             }
         }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            if (holder is EventItemViewHolder){
+            val event = events[position] ?: return
+                holder.lblTitle.text = event.title
+                holder.lblDateTime.text = "${event.date} ${event.time}"
+                imageLoader.loadImage(event.thumbnailUrl, holder.imgThumbnail)
+                holder.itemView.setOnClickListener {
+                    listeners.forEach { listener -> listener.onEventClick(event.id) }
+                }
+
+            }
+        }
+
+    }
+
+    companion object {
+        private const val  EVENT_ITEM_TYPE = 1
+        private const val EVENT_LOADING_TYPE = 2
     }
 
 
